@@ -54,7 +54,16 @@ const allowDrop = (draggingNode, dropNode, type) => {
               <Collapse class="section" :title="data.position" :description="data.employer">
                 <template #body>
                   <div class="job-experience">
-                    <Icon class="icon-btn-delete-section" icon="ph:trash-bold" @click="layout.deleteSectionItem(section.id, data.id)" />
+                    <div class="icon-btn-delete-section">
+                      <ConfirmationBtn :title="data.position" :description="data.employer" :cancel="layout.i18n.cancel[locale]" >
+                        <template #label>
+                          <Icon icon="ph:trash-bold" />
+                        </template>
+                        <template #confirm>
+                          <p @click="layout.deleteSectionItem(section.id, data.id)">{{layout.i18n.confirm[locale]}}</p>
+                        </template>
+                      </ConfirmationBtn>
+                    </div>
                     <div class="row1">
                       <InputText :inputId="data.id + '-position'" @input-text="(text) => data.position = text" :label="section.i18n.Position.label[locale]" :placeholder="section.i18n.Position.placeholder[locale]" />
                       <InputText :inputId="data.id + '-employer'" @input-text="(text) => data.employer = text" :label="section.i18n.Employer.label[locale]" :placeholder="section.i18n.Employer.placeholder[locale]" />
@@ -73,7 +82,16 @@ const allowDrop = (draggingNode, dropNode, type) => {
                         <Collapse :title="section.i18n.Tasks[locale]" :description="data.task" >
                           <template #body>
                             <div class="tasks item">
-                              <Icon class="icon-btn-delete-item" icon="ph:trash-bold" @click="layout.deleteJobExperienceTask(section.content[experienceIndex - 1].id)" />
+                              <div class="icon-btn-delete-item">
+                                <ConfirmationBtn :title="section.i18n.Tasks[locale]" :description="data.task" :cancel="layout.i18n.cancel[locale]" >
+                                  <template #label>
+                                    <Icon icon="ph:trash-bold"  />
+                                  </template>
+                                  <template #confirm>
+                                    <p @click="layout.deleteJobExperienceTask(section.content[experienceIndex - 1].id)">{{layout.i18n.confirm[locale]}}</p>
+                                  </template>
+                                </ConfirmationBtn>
+                              </div>
                               <RichText characterLimit="120" typeOfToolbar="normal" v-model="data.task" />
                             </div>
                           </template>
@@ -134,7 +152,16 @@ const allowDrop = (draggingNode, dropNode, type) => {
               <Collapse class="section" :title="data.skill" :description="data.detail" >
                 <template #body>
                   <div class="technical-skills" >
-                    <Icon class="icon-btn-delete-section" icon="ph:trash-bold" @click="layout.deleteSectionItem(section.id, data.id)" />
+                    <div class="icon-btn-delete-section">
+                      <ConfirmationBtn :title="data.title" :description="data.institute" :cancel="layout.i18n.cancel[locale]" >
+                        <template #label>
+                          <Icon icon="ph:trash-bold"  />
+                        </template>
+                        <template #confirm>
+                          <p @click="layout.deleteSectionItem(section.id, data.id)">{{layout.i18n.confirm[locale]}}</p>
+                        </template>
+                      </ConfirmationBtn>
+                    </div>
                     <InputText :inputId="data.id + '-skill'" @input-text="(text) => data.skill = text" :label="section.i18n.Skill.labelSkill[locale]" :placeholder="section.i18n.Skill.placeholderSkill[locale]" />
                     <InputText :inputId="data.id + '-detail'" @input-text="(text) => data.detail = text" :label="section.i18n.Skill.labelDetail[locale]" :placeholder="section.i18n.Skill.placeholderDetail[locale]" />
                   </div>
@@ -153,7 +180,16 @@ const allowDrop = (draggingNode, dropNode, type) => {
           <el-tree :allow-drop="allowDrop" :data="section.content" empty-text="i18n.empty[locale]" draggable default-expand-all node-key="id">
             <template #default="{ data }">
               <div class="personal-skills item">
-                <Icon class="icon-btn-delete-item" icon="ph:trash-bold" @click="layout.deleteSectionItem(section.id, data.id)" />
+                <div class="icon-btn-delete-item">
+                  <ConfirmationBtn :title="data.title" :description="data.institute" :cancel="layout.i18n.cancel[locale]" >
+                    <template #label>
+                      <Icon icon="ph:trash-bold"  />
+                    </template>
+                    <template #confirm>
+                      <p @click="layout.deleteSectionItem(section.id, data.id)">{{layout.i18n.confirm[locale]}}</p>
+                    </template>
+                  </ConfirmationBtn>
+                </div>
                 <InputText :inputId="data.id + '-skill'" @input-text="(text) => data.skill = text" :label="section.i18n.Skill.label[locale]" :placeholder="section.i18n.Skill.placeholder[locale]" />
               </div>
             </template>
@@ -169,7 +205,16 @@ const allowDrop = (draggingNode, dropNode, type) => {
           <el-tree :allow-drop="allowDrop" :data="section.content" empty-text="i18n.empty[locale]" draggable default-expand-all node-key="id">
             <template #default="{ data }">
               <div class="certifications item">
-                <Icon class="icon-btn-delete-item" icon="ph:trash-bold" @click="layout.deleteSectionItem(section.id, data.id)" />
+                <div class="icon-btn-delete-item">
+                  <ConfirmationBtn :title="data.title" :description="data.institute" :cancel="layout.i18n.cancel[locale]" >
+                    <template #label>
+                      <Icon icon="ph:trash-bold"  />
+                    </template>
+                    <template #confirm>
+                      <p @click="layout.deleteSectionItem(section.id, data.id)">{{layout.i18n.confirm[locale]}}</p>
+                    </template>
+                  </ConfirmationBtn>
+                </div>
                 <InputText :inputId="data.id + '-certification'" @input-text="(text) => data.certification = text" :label="section.i18n.label[locale]" :placeholder="section.i18n.placeholder[locale]" />
               </div>
             </template>
@@ -185,7 +230,16 @@ const allowDrop = (draggingNode, dropNode, type) => {
           <el-tree :allow-drop="allowDrop" :data="section.content" empty-text="i18n.empty[locale]" draggable default-expand-all node-key="id">
             <template #default="{ data }">
               <div class="hobbies item">
-                <Icon class="icon-btn-delete-item" icon="ph:trash-bold" @click="layout.deleteSectionItem(section.id, data.id)" />
+                <div class="icon-btn-delete-item">
+                  <ConfirmationBtn :title="data.title" :description="data.institute" :cancel="layout.i18n.cancel[locale]" >
+                    <template #label>
+                      <Icon icon="ph:trash-bold"  />
+                    </template>
+                    <template #confirm>
+                      <p @click="layout.deleteSectionItem(section.id, data.id)">{{layout.i18n.confirm[locale]}}</p>
+                    </template>
+                  </ConfirmationBtn>
+                </div>
                 <InputText :inputId="data.id + '-hobby'" @input-text="(text) => data.hobby = text" :label="section.i18n.Hobby.label[locale]" :placeholder="section.i18n.Hobby.placeholder[locale]" />
               </div>
             </template>
@@ -203,7 +257,16 @@ const allowDrop = (draggingNode, dropNode, type) => {
               <Collapse class="section" :title="data.title" :description="data.description">
                 <template #body>
                   <div class="personal-projects">
-                    <Icon class="icon-btn-delete-section" icon="ph:trash-bold" @click="layout.deleteSectionItem(section.id, data.id)" />
+                    <div class="icon-btn-delete-section">
+                      <ConfirmationBtn :title="data.title" :description="data.institute" :cancel="layout.i18n.cancel[locale]" >
+                        <template #label>
+                          <Icon icon="ph:trash-bold"  />
+                        </template>
+                        <template #confirm>
+                          <p @click="layout.deleteSectionItem(section.id, data.id)">{{layout.i18n.confirm[locale]}}</p>
+                        </template>
+                      </ConfirmationBtn>
+                    </div>
                     <InputText :inputId="data.id + '-project'" @input-text="(text) => data.title = text" :label="section.i18n.ProjectName.label[locale]" :placeholder="section.i18n.ProjectName.placeholder[locale]" />
                     <RichText characterLimit="100" typeOfToolbar="complex" v-model="data.description" />
                     <InputText :inputId="data.id + '-repository'" @input-text="(text) => data.repositoryLink = text" :label="section.i18n.Repository.link.label[locale]" :placeholder="section.i18n.Repository.link.placeholder[locale]" />
@@ -260,8 +323,8 @@ const allowDrop = (draggingNode, dropNode, type) => {
 
     .icon-btn-delete-item{
       position: absolute;
-      right: -1.8rem;
-      top: 57%;
+      right: -2.8rem;
+      top: 48%;
     }
   }
 
