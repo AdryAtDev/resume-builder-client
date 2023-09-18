@@ -7,6 +7,7 @@ import {reactive} from 'vue';
 
 export const useLayout1Store = defineStore("layout1", {
   state: () => {
+
     const i18n = {
       pageTitle: {
         en: "Resume Builder",

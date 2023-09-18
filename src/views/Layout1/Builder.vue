@@ -9,7 +9,7 @@ import IconBtn from '@/components/forms/IconBtn.vue'
 import ConfirmationBtn from '@/components/ConfirmationBtn.vue';
 
 const layout = useLayout1Store();
-const locale = useAppStore().locale;
+const app = useAppStore();
 
 const allowDrop = (draggingNode, dropNode, type) => {
     if (type === 'inner') {
@@ -22,22 +22,22 @@ const allowDrop = (draggingNode, dropNode, type) => {
 
 <template>
   <div id="builder1">
-    <h1>{{layout.i18n.pageTitle[locale]}}</h1>
+    <h1>{{layout.i18n.pageTitle[app.locale]}}</h1>
 
     <div class="sections-wrapper" v-for="section, index in layout.resume" :key="index">
       <!-- BEGIN HEAD -->
-      <Collapse :icon="section.icon" :title="section.i18n.Title[locale]" :description="section.i18n.Description[locale]" v-if="section.label == 'head-section'">
+      <Collapse :icon="section.icon" :title="section.i18n.Title[app.locale]" :description="section.i18n.Description[app.locale]" v-if="section.label == 'head-section'">
         <template #body>
           <div class="head">
-            <InputText :inputId="section.id + '-name'" @input-text="(text) => section.content[0].name = text" :label="section.i18n.Name.label[locale]" :placeholder="section.i18n.Name.placeholder[locale]" />
-            <InputText :inputId="section.id + '-position'" @input-text="(text) => section.content[0].position = text" :label="section.i18n.Position.label[locale]" :placeholder="section.i18n.Position.placeholder[locale]" />
+            <InputText :inputId="section.id + '-name'" @input-text="(text) => section.content[0].name = text" :label="section.i18n.Name.label[app.locale]" :placeholder="section.i18n.Name.placeholder[app.locale]" />
+            <InputText :inputId="section.id + '-position'" @input-text="(text) => section.content[0].position = text" :label="section.i18n.Position.label[app.locale]" :placeholder="section.i18n.Position.placeholder[app.locale]" />
           </div>
         </template>
       </Collapse>
       <!-- END HEAD -->
 
       <!-- BEGIN PROFILE INFO -->
-      <Collapse :icon="section.icon" :title="section.i18n.Title[locale]" :description="section.i18n.Description[locale]" v-if="section.label == 'profile-info-section'">
+      <Collapse :icon="section.icon" :title="section.i18n.Title[app.locale]" :description="section.i18n.Description[app.locale]" v-if="section.label == 'profile-info-section'">
         <template #body>
           <div class="profile-info">
             <RichText characterLimit="500" typeOfToolbar="complex" v-model="section.content[0].profileInfo" />
@@ -47,49 +47,49 @@ const allowDrop = (draggingNode, dropNode, type) => {
       <!-- END PROFILE INFO -->
 
       <!-- BEGIN JOB EXPERIENCE -->
-      <Collapse :icon="section.icon" :title="section.i18n.Title[locale]" :description="section.i18n.Description[locale]" v-if="section.label == 'job-experience-section'" v-for="experienceIndex in 1" :key="experienceIndex">
+      <Collapse :icon="section.icon" :title="section.i18n.Title[app.locale]" :description="section.i18n.Description[app.locale]" v-if="section.label == 'job-experience-section'" v-for="experienceIndex in 1" :key="experienceIndex">
         <template #body>
           <IconBtn icon="material-symbols:add" label="Add an Experience" @click="layout.addJobExperience()" />
-          <el-tree :allow-drop="allowDrop" :data="section.content" empty-text="i18n.empty[locale]" draggable default-expand-all node-key="id">
+          <el-tree :allow-drop="allowDrop" :data="section.content" empty-text="i18n.empty[app.locale]" draggable default-expand-all node-key="id">
             <template #default="{ data }">
               <Collapse class="section" :title="data.position" :description="data.employer">
                 <template #body>
                   <div class="job-experience">
                     <div class="icon-btn-delete-section">
-                      <ConfirmationBtn :title="data.position" :description="data.employer" :cancel="layout.i18n.cancel[locale]" >
+                      <ConfirmationBtn :title="data.position" :description="data.employer" :cancel="layout.i18n.cancel[app.locale]" >
                         <template #label>
                           <Icon icon="ph:trash-bold" />
                         </template>
                         <template #confirm>
-                          <p @click="layout.deleteSectionItem(section.id, data.id)">{{layout.i18n.confirm[locale]}}</p>
+                          <p @click="layout.deleteSectionItem(section.id, data.id)">{{layout.i18n.confirm[app.locale]}}</p>
                         </template>
                       </ConfirmationBtn>
                     </div>
                     <div class="row1">
-                      <InputText :inputId="data.id + '-position'" @input-text="(text) => data.position = text" :label="section.i18n.Position.label[locale]" :placeholder="section.i18n.Position.placeholder[locale]" />
-                      <InputText :inputId="data.id + '-employer'" @input-text="(text) => data.employer = text" :label="section.i18n.Employer.label[locale]" :placeholder="section.i18n.Employer.placeholder[locale]" />
-                      <InputText :inputId="data.id + '-city'" @input-text="(text) => data.city = text" :label="section.i18n.City.label[locale]" :placeholder="section.i18n.City.placeholder[locale]" />
-                      <InputText :inputId="data.id + '-country'" @input-text="(text) => data.country = text" :label="section.i18n.Country.label[locale]" :placeholder="section.i18n.Country.placeholder[locale]" />
-                      <el-checkbox class="checkbox" v-model="data.isWorking" :label="section.i18n.Working.label[locale]" size="small" border />
-                      <el-checkbox class="checkbox" v-model="data.isRemote" :label="section.i18n.Remote.label[locale]" size="small" border />
-                      <el-date-picker class="date-picker" v-model="data.startDate" type="month" format="MM-YYYY" :placeholder="section.i18n.StartDate.placeholder[locale]" />
-                      <el-date-picker class="date-picker" v-model="data.finishDate" type="month" format="MM-YYYY" :placeholder="section.i18n.FinishDate.placeholder[locale]" v-if="data.isWorking == false" />
+                      <InputText :inputId="data.id + '-position'" @input-text="(text) => data.position = text" :label="section.i18n.Position.label[app.locale]" :placeholder="section.i18n.Position.placeholder[app.locale]" />
+                      <InputText :inputId="data.id + '-employer'" @input-text="(text) => data.employer = text" :label="section.i18n.Employer.label[app.locale]" :placeholder="section.i18n.Employer.placeholder[app.locale]" />
+                      <InputText :inputId="data.id + '-city'" @input-text="(text) => data.city = text" :label="section.i18n.City.label[app.locale]" :placeholder="section.i18n.City.placeholder[app.locale]" />
+                      <InputText :inputId="data.id + '-country'" @input-text="(text) => data.country = text" :label="section.i18n.Country.label[app.locale]" :placeholder="section.i18n.Country.placeholder[app.locale]" />
+                      <el-checkbox class="checkbox" v-model="data.isWorking" :label="section.i18n.Working.label[app.locale]" size="small" border />
+                      <el-checkbox class="checkbox" v-model="data.isRemote" :label="section.i18n.Remote.label[app.locale]" size="small" border />
+                      <el-date-picker class="date-picker" v-model="data.startDate" type="month" format="MM-YYYY" :placeholder="section.i18n.StartDate.placeholder[app.locale]" />
+                      <el-date-picker class="date-picker" v-model="data.finishDate" type="month" format="MM-YYYY" :placeholder="section.i18n.FinishDate.placeholder[app.locale]" v-if="data.isWorking == false" />
                     </div>
                     <RichText class="rich-text" characterLimit="150" typeOfToolbar="normal" v-model="data.description" />
 
                     <!-- BEGIN TASKS -->
-                    <el-tree :allow-drop="allowDrop" :data="data.tasks" empty-text="i18n.empty[locale]" draggable default-expand-all node-key="id">
+                    <el-tree :allow-drop="allowDrop" :data="data.tasks" empty-text="i18n.empty[app.locale]" draggable default-expand-all node-key="id">
                       <template #default="{ data }">
-                        <Collapse :title="section.i18n.Tasks[locale]" :description="data.task" >
+                        <Collapse :title="section.i18n.Tasks[app.locale]" :description="data.task" >
                           <template #body>
                             <div class="tasks item">
                               <div class="icon-btn-delete-item">
-                                <ConfirmationBtn :title="section.i18n.Tasks[locale]" :description="data.task" :cancel="layout.i18n.cancel[locale]" >
+                                <ConfirmationBtn :title="section.i18n.Tasks[app.locale]" :description="data.task" :cancel="layout.i18n.cancel[app.locale]" >
                                   <template #label>
                                     <Icon icon="ph:trash-bold"  />
                                   </template>
                                   <template #confirm>
-                                    <p @click="layout.deleteJobExperienceTask(section.content[experienceIndex - 1].id)">{{layout.i18n.confirm[locale]}}</p>
+                                    <p @click="layout.deleteJobExperienceTask(section.content[experienceIndex - 1].id)">{{layout.i18n.confirm[app.locale]}}</p>
                                   </template>
                                 </ConfirmationBtn>
                               </div>
@@ -112,28 +112,28 @@ const allowDrop = (draggingNode, dropNode, type) => {
       <!-- END JOB EXPERIENCE -->
 
       <!-- BEGIN EDUCATION HISTORY-->
-      <Collapse :icon="section.icon" :title="section.i18n.Title[locale]" :description="section.i18n.Description[locale]" v-if="section.label == 'education-history-section'">
+      <Collapse :icon="section.icon" :title="section.i18n.Title[app.locale]" :description="section.i18n.Description[app.locale]" v-if="section.label == 'education-history-section'">
         <template #body>
-          <el-tree :allow-drop="allowDrop" :data="section.content" empty-text="i18n.empty[locale]" draggable default-expand-all node-key="id">
+          <el-tree :allow-drop="allowDrop" :data="section.content" empty-text="i18n.empty[app.locale]" draggable default-expand-all node-key="id">
             <template #default="{ data }">
               <Collapse class="section" :title="data.title" :description="data.institute">
                 <template #body>
                   <div class="education-history">
                     <div class="icon-btn-delete-section">
-                      <ConfirmationBtn :title="data.title" :description="data.institute" :cancel="layout.i18n.cancel[locale]" >
+                      <ConfirmationBtn :title="data.title" :description="data.institute" :cancel="layout.i18n.cancel[app.locale]" >
                         <template #label>
                           <Icon icon="ph:trash-bold"  />
                         </template>
                         <template #confirm>
-                          <p @click="layout.deleteSectionItem(section.id, data.id)">{{layout.i18n.confirm[locale]}}</p>
+                          <p @click="layout.deleteSectionItem(section.id, data.id)">{{layout.i18n.confirm[app.locale]}}</p>
                         </template>
                       </ConfirmationBtn>
                     </div>
-                    <InputText :inputId="data.id + '-title'" @input-text="(text) => data.title = text" :label="section.i18n.EducationTitle.label[locale]" :placeholder="section.i18n.EducationTitle.placeholder[locale]" />
-                    <InputText :inputId="data.id + '-institute'" @input-text="(text) => data.institute = text" :label="section.i18n.EducationInstitute.label[locale]" :placeholder="section.i18n.EducationInstitute.placeholder[locale]" />
+                    <InputText :inputId="data.id + '-title'" @input-text="(text) => data.title = text" :label="section.i18n.EducationTitle.label[app.locale]" :placeholder="section.i18n.EducationTitle.placeholder[app.locale]" />
+                    <InputText :inputId="data.id + '-institute'" @input-text="(text) => data.institute = text" :label="section.i18n.EducationInstitute.label[app.locale]" :placeholder="section.i18n.EducationInstitute.placeholder[app.locale]" />
                     <div class="date-picker-group">
-                      <el-date-picker class="date-picker" v-model="data.startDate" type="month" format="MM-YYYY" :placeholder="section.i18n.EducationStartDate.placeholder[locale]" />
-                      <el-date-picker class="date-picker" v-model="data.finishDate" type="month" format="MM-YYYY" :placeholder="section.i18n.EducationFinishDate.placeholder[locale]" />
+                      <el-date-picker class="date-picker" v-model="data.startDate" type="month" format="MM-YYYY" :placeholder="section.i18n.EducationStartDate.placeholder[app.locale]" />
+                      <el-date-picker class="date-picker" v-model="data.finishDate" type="month" format="MM-YYYY" :placeholder="section.i18n.EducationFinishDate.placeholder[app.locale]" />
                     </div>
                   </div>
                 </template>
@@ -146,25 +146,25 @@ const allowDrop = (draggingNode, dropNode, type) => {
       <!-- END EDUCATION HISTORY -->
 
       <!-- BEGIN TECHNICAL SKILLS -->
-      <Collapse :icon="section.icon" :title="section.i18n.Title[locale]" :description="section.i18n.Description[locale]" v-if="section.label == 'technical-skills-section'">
+      <Collapse :icon="section.icon" :title="section.i18n.Title[app.locale]" :description="section.i18n.Description[app.locale]" v-if="section.label == 'technical-skills-section'">
         <template #body>
-          <el-tree :allow-drop="allowDrop" :data="section.content" empty-text="i18n.empty[locale]" draggable default-expand-all node-key="id">
+          <el-tree :allow-drop="allowDrop" :data="section.content" empty-text="i18n.empty[app.locale]" draggable default-expand-all node-key="id">
             <template #default="{ data }">
               <Collapse class="section" :title="data.skill" :description="data.detail" >
                 <template #body>
                   <div class="technical-skills" >
                     <div class="icon-btn-delete-section">
-                      <ConfirmationBtn :title="data.title" :description="data.institute" :cancel="layout.i18n.cancel[locale]" >
+                      <ConfirmationBtn :title="data.title" :description="data.institute" :cancel="layout.i18n.cancel[app.locale]" >
                         <template #label>
                           <Icon icon="ph:trash-bold"  />
                         </template>
                         <template #confirm>
-                          <p @click="layout.deleteSectionItem(section.id, data.id)">{{layout.i18n.confirm[locale]}}</p>
+                          <p @click="layout.deleteSectionItem(section.id, data.id)">{{layout.i18n.confirm[app.locale]}}</p>
                         </template>
                       </ConfirmationBtn>
                     </div>
-                    <InputText :inputId="data.id + '-skill'" @input-text="(text) => data.skill = text" :label="section.i18n.Skill.labelSkill[locale]" :placeholder="section.i18n.Skill.placeholderSkill[locale]" />
-                    <InputText :inputId="data.id + '-detail'" @input-text="(text) => data.detail = text" :label="section.i18n.Skill.labelDetail[locale]" :placeholder="section.i18n.Skill.placeholderDetail[locale]" />
+                    <InputText :inputId="data.id + '-skill'" @input-text="(text) => data.skill = text" :label="section.i18n.Skill.labelSkill[app.locale]" :placeholder="section.i18n.Skill.placeholderSkill[app.locale]" />
+                    <InputText :inputId="data.id + '-detail'" @input-text="(text) => data.detail = text" :label="section.i18n.Skill.labelDetail[app.locale]" :placeholder="section.i18n.Skill.placeholderDetail[app.locale]" />
                   </div>
                 </template>
               </Collapse>
@@ -176,22 +176,22 @@ const allowDrop = (draggingNode, dropNode, type) => {
       <!-- END TECHNICAL SKILLS -->
 
       <!-- BEGIN PERSONAL SKILLS -->
-      <Collapse :icon="section.icon" :title="section.i18n.Title[locale]" :description="section.i18n.Description[locale]" v-if="section.label == 'personal-skills-section'">
+      <Collapse :icon="section.icon" :title="section.i18n.Title[app.locale]" :description="section.i18n.Description[app.locale]" v-if="section.label == 'personal-skills-section'">
         <template #body>
-          <el-tree :allow-drop="allowDrop" :data="section.content" empty-text="i18n.empty[locale]" draggable default-expand-all node-key="id">
+          <el-tree :allow-drop="allowDrop" :data="section.content" empty-text="i18n.empty[app.locale]" draggable default-expand-all node-key="id">
             <template #default="{ data }">
               <div class="personal-skills item">
                 <div class="icon-btn-delete-item">
-                  <ConfirmationBtn :title="data.title" :description="data.institute" :cancel="layout.i18n.cancel[locale]" >
+                  <ConfirmationBtn :title="data.title" :description="data.institute" :cancel="layout.i18n.cancel[app.locale]" >
                     <template #label>
                       <Icon icon="ph:trash-bold"  />
                     </template>
                     <template #confirm>
-                      <p @click="layout.deleteSectionItem(section.id, data.id)">{{layout.i18n.confirm[locale]}}</p>
+                      <p @click="layout.deleteSectionItem(section.id, data.id)">{{layout.i18n.confirm[app.locale]}}</p>
                     </template>
                   </ConfirmationBtn>
                 </div>
-                <InputText :inputId="data.id + '-skill'" @input-text="(text) => data.skill = text" :label="section.i18n.Skill.label[locale]" :placeholder="section.i18n.Skill.placeholder[locale]" />
+                <InputText :inputId="data.id + '-skill'" @input-text="(text) => data.skill = text" :label="section.i18n.Skill.label[app.locale]" :placeholder="section.i18n.Skill.placeholder[app.locale]" />
               </div>
             </template>
           </el-tree>
@@ -201,22 +201,22 @@ const allowDrop = (draggingNode, dropNode, type) => {
       <!-- END PERSONAL SKILLS -->
 
       <!-- BEGIN CERTIFICATIONS -->
-      <Collapse :icon="section.icon" :title="section.i18n.Title[locale]" :description="section.i18n.Description[locale]" v-if="section.label == 'certifications-section'">
+      <Collapse :icon="section.icon" :title="section.i18n.Title[app.locale]" :description="section.i18n.Description[app.locale]" v-if="section.label == 'certifications-section'">
         <template #body>
-          <el-tree :allow-drop="allowDrop" :data="section.content" empty-text="i18n.empty[locale]" draggable default-expand-all node-key="id">
+          <el-tree :allow-drop="allowDrop" :data="section.content" empty-text="i18n.empty[app.locale]" draggable default-expand-all node-key="id">
             <template #default="{ data }">
               <div class="certifications item">
                 <div class="icon-btn-delete-item">
-                  <ConfirmationBtn :title="data.title" :description="data.institute" :cancel="layout.i18n.cancel[locale]" >
+                  <ConfirmationBtn :title="data.title" :description="data.institute" :cancel="layout.i18n.cancel[app.locale]" >
                     <template #label>
                       <Icon icon="ph:trash-bold"  />
                     </template>
                     <template #confirm>
-                      <p @click="layout.deleteSectionItem(section.id, data.id)">{{layout.i18n.confirm[locale]}}</p>
+                      <p @click="layout.deleteSectionItem(section.id, data.id)">{{layout.i18n.confirm[app.locale]}}</p>
                     </template>
                   </ConfirmationBtn>
                 </div>
-                <InputText :inputId="data.id + '-certification'" @input-text="(text) => data.certification = text" :label="section.i18n.label[locale]" :placeholder="section.i18n.placeholder[locale]" />
+                <InputText :inputId="data.id + '-certification'" @input-text="(text) => data.certification = text" :label="section.i18n.label[app.locale]" :placeholder="section.i18n.placeholder[app.locale]" />
               </div>
             </template>
           </el-tree>
@@ -226,22 +226,22 @@ const allowDrop = (draggingNode, dropNode, type) => {
       <!-- END CERTIFICATIONS -->
 
       <!-- BEGIN HOBBIES -->
-      <Collapse :icon="section.icon" :title="section.i18n.Title[locale]" :description="section.i18n.Description[locale]" v-if="section.label == 'hobbies-section'">
+      <Collapse :icon="section.icon" :title="section.i18n.Title[app.locale]" :description="section.i18n.Description[app.locale]" v-if="section.label == 'hobbies-section'">
         <template #body>
-          <el-tree :allow-drop="allowDrop" :data="section.content" empty-text="i18n.empty[locale]" draggable default-expand-all node-key="id">
+          <el-tree :allow-drop="allowDrop" :data="section.content" empty-text="i18n.empty[app.locale]" draggable default-expand-all node-key="id">
             <template #default="{ data }">
               <div class="hobbies item">
                 <div class="icon-btn-delete-item">
-                  <ConfirmationBtn :title="data.title" :description="data.institute" :cancel="layout.i18n.cancel[locale]" >
+                  <ConfirmationBtn :title="data.title" :description="data.institute" :cancel="layout.i18n.cancel[app.locale]" >
                     <template #label>
                       <Icon icon="ph:trash-bold"  />
                     </template>
                     <template #confirm>
-                      <p @click="layout.deleteSectionItem(section.id, data.id)">{{layout.i18n.confirm[locale]}}</p>
+                      <p @click="layout.deleteSectionItem(section.id, data.id)">{{layout.i18n.confirm[app.locale]}}</p>
                     </template>
                   </ConfirmationBtn>
                 </div>
-                <InputText :inputId="data.id + '-hobby'" @input-text="(text) => data.hobby = text" :label="section.i18n.Hobby.label[locale]" :placeholder="section.i18n.Hobby.placeholder[locale]" />
+                <InputText :inputId="data.id + '-hobby'" @input-text="(text) => data.hobby = text" :label="section.i18n.Hobby.label[app.locale]" :placeholder="section.i18n.Hobby.placeholder[app.locale]" />
               </div>
             </template>
           </el-tree>
@@ -251,27 +251,27 @@ const allowDrop = (draggingNode, dropNode, type) => {
       <!-- END HOBBIES -->
 
       <!-- BEGIN PERSONAL PROJECTS -->
-      <Collapse :icon="section.icon" :title="section.i18n.Title[locale]" :description="section.i18n.Description[locale]" v-if="section.label == 'personal-projects-section'">
+      <Collapse :icon="section.icon" :title="section.i18n.Title[app.locale]" :description="section.i18n.Description[app.locale]" v-if="section.label == 'personal-projects-section'">
         <template #body>
-          <el-tree :allow-drop="allowDrop" :data="section.content" empty-text="i18n.empty[locale]" draggable default-expand-all node-key="id">
+          <el-tree :allow-drop="allowDrop" :data="section.content" empty-text="i18n.empty[app.locale]" draggable default-expand-all node-key="id">
             <template #default="{ data }">
               <Collapse class="section" :title="data.title" :description="data.description">
                 <template #body>
                   <div class="personal-projects">
                     <div class="icon-btn-delete-section">
-                      <ConfirmationBtn :title="data.title" :description="data.institute" :cancel="layout.i18n.cancel[locale]" >
+                      <ConfirmationBtn :title="data.title" :description="data.institute" :cancel="layout.i18n.cancel[app.locale]" >
                         <template #label>
                           <Icon icon="ph:trash-bold"  />
                         </template>
                         <template #confirm>
-                          <p @click="layout.deleteSectionItem(section.id, data.id)">{{layout.i18n.confirm[locale]}}</p>
+                          <p @click="layout.deleteSectionItem(section.id, data.id)">{{layout.i18n.confirm[app.locale]}}</p>
                         </template>
                       </ConfirmationBtn>
                     </div>
-                    <InputText :inputId="data.id + '-project'" @input-text="(text) => data.title = text" :label="section.i18n.ProjectName.label[locale]" :placeholder="section.i18n.ProjectName.placeholder[locale]" />
+                    <InputText :inputId="data.id + '-project'" @input-text="(text) => data.title = text" :label="section.i18n.ProjectName.label[app.locale]" :placeholder="section.i18n.ProjectName.placeholder[app.locale]" />
                     <RichText characterLimit="100" typeOfToolbar="complex" v-model="data.description" />
-                    <InputText :inputId="data.id + '-repository'" @input-text="(text) => data.repositoryLink = text" :label="section.i18n.Repository.link.label[locale]" :placeholder="section.i18n.Repository.link.placeholder[locale]" />
-                    <InputText :inputId="data.id + '-website'" @input-text="(text) => data.websiteLink = text" :label="section.i18n.Website.link.label[locale]" :placeholder="section.i18n.Website.link.placeholder[locale]" />
+                    <InputText :inputId="data.id + '-repository'" @input-text="(text) => data.repositoryLink = text" :label="section.i18n.Repository.link.label[app.locale]" :placeholder="section.i18n.Repository.link.placeholder[app.locale]" />
+                    <InputText :inputId="data.id + '-website'" @input-text="(text) => data.websiteLink = text" :label="section.i18n.Website.link.label[app.locale]" :placeholder="section.i18n.Website.link.placeholder[app.locale]" />
                   </div>
                 </template>
               </Collapse>

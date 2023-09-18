@@ -4,7 +4,7 @@ import {useLayout1Store} from '@/stores/layout1.js';
 import Section from '@/components/resume/Section.vue';
 
 const layout = useLayout1Store();
-const locale = useAppStore().locale;
+const app = useAppStore();
 
 const transformDateMY = (date) => {
   if (date !== '') {
@@ -47,7 +47,7 @@ const transformDateMY = (date) => {
 
       <!-- BEGIN PROFILE INFO -->
       <div class="row2 profile-info">
-        <Section :icon="layout.profileInfo.icon" :title="layout.profileInfo.i18n.Title[locale]">
+        <Section :icon="layout.profileInfo.icon" :title="layout.profileInfo.i18n.Title[app.locale]">
           <template #body>
             <p v-html="layout.profileInfo.content[0].profileInfo"></p>
           </template>
@@ -61,15 +61,15 @@ const transformDateMY = (date) => {
         <div class="left-group">
 
           <!-- BEGIN JOB EXPERIENCE -->
-          <Section class="job-experience" :icon="layout.jobExperience.icon" :title="layout.jobExperience.i18n.Title[locale]" >
+          <Section class="job-experience" :icon="layout.jobExperience.icon" :title="layout.jobExperience.i18n.Title[app.locale]" >
             <template #body>
               <div class="experience" v-for="experience, index in layout.jobExperience.content" :key="index">
                 <div class="row1">
-                  <h4> <strong>{{experience.position}}</strong> <b v-if="experience.employer !=''">|</b> <strong>{{experience.employer}}</strong><b v-if="experience.city !==''">,</b> <span class="reduce-size">{{experience.city}}</span><b v-if="experience.country !==''">,</b> <span class="reduce-size"> {{experience.country}} </span> <b v-if="experience.isRemote">|</b> <span class="reduce-size" v-if="experience.isRemote">{{layout.jobExperience.i18n.Remote.label[locale]}}</span> </h4>
+                  <h4> <strong>{{experience.position}}</strong> <b v-if="experience.employer !=''">|</b> <strong>{{experience.employer}}</strong><b v-if="experience.city !==''">,</b> <span class="reduce-size">{{experience.city}}</span><b v-if="experience.country !==''">,</b> <span class="reduce-size"> {{experience.country}} </span> <b v-if="experience.isRemote">|</b> <span class="reduce-size" v-if="experience.isRemote">{{layout.jobExperience.i18n.Remote.label[app.locale]}}</span> </h4>
                 </div>
 
                 <div class="row2">
-                  <p class="reduce-size"> {{transformDateMY(experience.startDate)}} </p> <span class="reduce-size" v-if="experience.isWorking">-</span> <span class="reduce-size" v-else-if="experience.finishDate !==''">-</span> <p class="reduce-size" v-if="experience.isWorking">{{layout.jobExperience.i18n.DateWorking[locale]}}</p> <p class="reduce-size" v-else>{{transformDateMY(experience.finishDate)}}</p>
+                  <p class="reduce-size"> {{transformDateMY(experience.startDate)}} </p> <span class="reduce-size" v-if="experience.isWorking">-</span> <span class="reduce-size" v-else-if="experience.finishDate !==''">-</span> <p class="reduce-size" v-if="experience.isWorking">{{layout.jobExperience.i18n.DateWorking[app.locale]}}</p> <p class="reduce-size" v-else>{{transformDateMY(experience.finishDate)}}</p>
                 </div>
 
                 <div class="row3">
@@ -87,14 +87,14 @@ const transformDateMY = (date) => {
           <!-- END JOB EXPERIENCE -->
 
           <!-- BEGIN PERSONAL PROJECTS -->
-          <Section class="personal-projects" :icon="layout.personalProjects.icon" :title="layout.personalProjects.i18n.Title[locale]" >
+          <Section class="personal-projects" :icon="layout.personalProjects.icon" :title="layout.personalProjects.i18n.Title[app.locale]" >
             <template #body>
               <div class="project" v-for="project, index in layout.personalProjects.content" :key="index">
                 <h4>{{project.title}}</h4>
                 <p v-html="project.description"></p>
                 <div class="links">
-                  <a href="{{ project.repositoryLink }}">{{layout.personalProjects.i18n.Repository.link.label[locale]}}</a>
-                  <a href="{{ project.websiteLink }}">{{layout.personalProjects.i18n.Website.link.label[locale]}}</a>
+                  <a href="{{ project.repositoryLink }}">{{layout.personalProjects.i18n.Repository.link.label[app.locale]}}</a>
+                  <a href="{{ project.websiteLink }}">{{layout.personalProjects.i18n.Website.link.label[app.locale]}}</a>
                 </div>
               </div>
             </template>
@@ -107,7 +107,7 @@ const transformDateMY = (date) => {
         <!-- BEGIN RIGHT GROUP -->
         <div class="right-group">
           <!-- BEGIN EDUCATION HISTORY -->
-          <Section class="education-history" :icon="layout.educationHistory.icon" :title="layout.educationHistory.i18n.Title[locale]" >
+          <Section class="education-history" :icon="layout.educationHistory.icon" :title="layout.educationHistory.i18n.Title[app.locale]" >
             <template #body>
               <ol class="bullet-point">
                 <li v-for="education, index in layout.educationHistory.content" :key="index">
@@ -136,7 +136,7 @@ const transformDateMY = (date) => {
           <!-- END EDUCATION HISTORY -->
 
           <!-- BEGIN TECHNICAL SKILLS -->
-          <Section class="technical-skills" :icon="layout.technicalSkills.icon" :title="layout.technicalSkills.i18n.Title[locale]" >
+          <Section class="technical-skills" :icon="layout.technicalSkills.icon" :title="layout.technicalSkills.i18n.Title[app.locale]" >
             <template #body>
               <ol class="bullet-point">
                 <li v-for="skill, index in layout.technicalSkills.content" :key="index">
@@ -155,7 +155,7 @@ const transformDateMY = (date) => {
           <!-- END TECHNICAL SKILLS -->
 
           <!-- BEGIN PERSONAL SKILLS -->
-          <Section class="personal-skills" :icon="layout.personalSkills.icon" :title="layout.personalSkills.i18n.Title[locale]" >
+          <Section class="personal-skills" :icon="layout.personalSkills.icon" :title="layout.personalSkills.i18n.Title[app.locale]" >
             <template #body>
               <ol class="bullet-point">
                 <li v-for="skill, index in layout.personalSkills.content" :key="index">
@@ -174,7 +174,7 @@ const transformDateMY = (date) => {
           <!-- END PERSONAL SKILLS -->
 
           <!-- BEGIN CERTIFICATIONS -->
-          <Section class="certifications" :icon="layout.certifications.icon" :title="layout.certifications.i18n.Title[locale]" >
+          <Section class="certifications" :icon="layout.certifications.icon" :title="layout.certifications.i18n.Title[app.locale]" >
             <template #body>
               <ol class="bullet-point">
                 <li v-for="certification, index in layout.certifications.content" :key="index">
@@ -193,7 +193,7 @@ const transformDateMY = (date) => {
           <!-- END CERTIFICATIONS -->
 
           <!-- BEGIN HOBBIES -->
-          <Section class="hobbies" :icon="layout.hobbies.icon" :title="layout.hobbies.i18n.Title[locale]" >
+          <Section class="hobbies" :icon="layout.hobbies.icon" :title="layout.hobbies.i18n.Title[app.locale]" >
             <template #body>
               <ol class="bullet-point">
                 <li v-for="hobby, index in layout.hobbies.content" :key="index">

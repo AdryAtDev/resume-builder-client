@@ -31,7 +31,7 @@
 			<span style="">{{ editor.storage.characterCount.characters() }}/{{
 				characterLimit
 			}}
-			{{ i18n.i18n.characterCount[i18n.i18n.locale] }}</span>
+			{{ i18n.i18n.characterCount[i18n.i18n.app.locale] }}</span>
 			<!-- <span> {{ editor.storage.characterCount.words() }} words </span> -->
 		</div>
 	</div>
@@ -70,7 +70,7 @@ export default {
 		return {
 			editor: null,
 			i18n: useLayout1Store(),
-			locale: useAppStore().locale,
+			app: useAppStore(),
 		};
 	},
 
