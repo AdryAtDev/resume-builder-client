@@ -17,7 +17,7 @@ import Resume from './Resume.vue';
   align-items: start;
 }
 
-@media only screen and (min-width: 1280px) {
+@media only screen and (min-width: 1649px) {
   #layout1{
     grid-template-columns: 50% 50%;
     gap: 1rem;

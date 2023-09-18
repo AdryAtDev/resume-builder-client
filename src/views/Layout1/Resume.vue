@@ -24,14 +24,14 @@ const transformDateMY = (date) => {
       <div class="row1 head">
         <!-- BEGIN HEAD LEFT -->
         <div class="col1">
-          <h1>Lorem ipsum dolor</h1>
+          <h1>{{ layout.head.content[0].name }}</h1>
         </div>
         <!-- END HEAD LEFT -->
 
         <!-- BEGIN HEAD RIGHT -->
         <div class="col2">
           <img class="logo" src="@/assets/icons/atdev-logo.png" alt="ATDEV Logo">
-          <h2>Lorem ipsum dolor sit amet</h2>
+          <h2>{{ layout.head.content[0].position }}</h2>
         </div>
         <!-- END  HEAD RIGHT -->
 
@@ -145,8 +145,7 @@ const transformDateMY = (date) => {
                     </svg>
                   </div>
                   <div class="body">
-                    <h4>{{ skill.skill }}<span>:</span></h4>
-                    <p>{{ skill.detail }}</p>
+                    <h4>{{ skill.skill }}<span>:</span> <span class="detail">{{ skill.detail }}</span> </h4>
                   </div>
                 </li>
               </ol>
@@ -292,19 +291,27 @@ const transformDateMY = (date) => {
     gap: 6rem;
 
     // BEGIN HEAD
-    &>.row1{
+    &>.head{
       width: 100%;
       display: grid;
       grid-template-columns: 50% 50%;
       gap: 1rem;
 
       &>.col1{
+        width: 100%;
         display: flex;
         align-items: center;
         justify-content: end;
+        flex-wrap: wrap;
+        word-break: break-all;
+
+        h1{
+          text-align: end;
+        }
       }
 
       &>.col2{
+        width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -315,6 +322,10 @@ const transformDateMY = (date) => {
         .logo{
           width: 50%;
           height: 50%;
+        }
+
+        h2{
+          width: 90%;
         }
       }
 
@@ -371,6 +382,10 @@ const transformDateMY = (date) => {
               p,span{
                 color: var(--pastel-grey);
               }
+            }
+
+            .row3{
+              width: 74%;
             }
 
             .row4{
@@ -437,11 +452,20 @@ const transformDateMY = (date) => {
         // BEGIN TECHNICAL SKILLS
         .technical-skills{
           .body{
-            width: 66%;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 0.3rem;
+            width: 100%;
+            word-wrap: break-word;
+
+            h4{
+              display: flex;
+              flex-wrap: wrap;
+              width: 100%;
+            }
+
+            .detail{
+              width: 94%;
+              font-weight: normal;
+              font-size: 1rem;
+            }
           }
         }
         // END TECHNICAL SKILLS
