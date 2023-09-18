@@ -175,6 +175,14 @@ export const useLayout1Store = defineStore("layout1", {
         Tasks: {
           en: "Task",
           es: "Labor",
+          BtnAddMore: {
+            en: "Add One More Task",
+            es: "Añade Otra Tarea",
+          },
+          BtnAddMoreFirstTime: {
+            en: "Add a Task",
+            es: "Añade una Tarea",
+          },
         },
         BtnAddMore: {
           en: "Add One More Experience",
@@ -253,12 +261,12 @@ export const useLayout1Store = defineStore("layout1", {
           },
         },
         BtnAddMore: {
-          en: "Add More",
-          es: "Añade Otro",
+          en: "Add",
+          es: "Añadir",
         },
         BtnAddMoreFirstTime: {
-          en: "Add One",
-          es: "Añade Una",
+          en: "Add",
+          es: "Añadir",
         },
         Empty: {
           en: "Tell recruiters about your education history!",
