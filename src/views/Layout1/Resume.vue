@@ -25,19 +25,23 @@ const transformDateMY = (date) => {
       <div class="row1 head">
         <!-- BEGIN HEAD LEFT -->
         <div class="col1">
-          <h1>{{ layout.head.content[0].name }}</h1>
+          <Transition name="slide-fade">
+            <h1 v-if="layout.head.content[0].name !== ''">{{ layout.head.content[0].name }}</h1>
+          </Transition>
         </div>
         <!-- END HEAD LEFT -->
 
         <!-- BEGIN HEAD RIGHT -->
         <div class="col2">
-          <img class="logo" src="@/assets/icons/atdev-logo.png" alt="ATDEV Logo">
-          <h2>{{ layout.head.content[0].position }}</h2>
+          <img v-if="layout.head.content[0].position !== ''" class="logo" src="@/assets/icons/atdev-logo.png" alt="ATDEV Logo">
+          <Transition name="slide-fade">
+            <h2 v-if="layout.head.content[0].position !== ''">{{ layout.head.content[0].position }}</h2>
+          </Transition>
         </div>
         <!-- END  HEAD RIGHT -->
 
         <!-- BEGIN BORDER BOTTOM -->
-        <div class="border-bottom">
+        <div v-show="layout.head.content[0].name !== ''" class="border-bottom">
           <div class="border-1"></div>
           <div class="border-2"></div>
         </div>
@@ -49,7 +53,9 @@ const transformDateMY = (date) => {
       <div class="row2 profile-info">
         <Section :icon="layout.profileInfo.icon" :title="layout.profileInfo.i18n.Title[app.locale]">
           <template #body>
-            <p v-html="layout.profileInfo.content[0].profileInfo"></p>
+            <Transition name="slide-fade">
+              <p v-if="layout.profileInfo.content[0].profileInfo !== ''" v-html="layout.profileInfo.content[0].profileInfo"></p>
+            </Transition>
           </template>
         </Section>
       </div>
@@ -65,20 +71,62 @@ const transformDateMY = (date) => {
             <template #body>
               <div class="experience" v-for="experience, index in layout.jobExperience.content" :key="index">
                 <div class="row1">
-                  <h4> <strong>{{experience.position}}</strong> <b v-if="experience.employer !=''">|</b> <strong>{{experience.employer}}</strong><b v-if="experience.city !==''">,</b> <span class="reduce-size">{{experience.city}}</span><b v-if="experience.country !==''">,</b> <span class="reduce-size"> {{experience.country}} </span> <b v-if="experience.isRemote">|</b> <span class="reduce-size" v-if="experience.isRemote">{{layout.jobExperience.i18n.Remote.label[app.locale]}}</span> </h4>
+                  <Transition name="slide-fade">
+                    <h4 v-show="experience.position !== ''">
+                      <Transition name="slide-fade">
+                        <strong>{{experience.position}}</strong>
+                      </Transition>
+
+                      <Transition name="slide-fade">
+                        <b v-if="experience.employer !=''"> | </b> 
+                      </Transition>
+
+                      <Transition name="slide-fade">
+                        <strong>{{experience.employer}}</strong>
+                      </Transition>
+
+                      <Transition name="slide-fade">
+                        <b v-if="experience.city !==''">, </b> 
+                      </Transition>
+
+                      <Transition name="slide-fade">
+                        <span class="reduce-size">{{experience.city}}</span>
+                      </Transition>
+
+                      <Transition name="slide-fade">
+                        <b v-if="experience.country !==''">, </b> 
+                      </Transition>
+
+                      <Transition name="slide-fade">
+                        <span class="reduce-size"> {{experience.country}} </span> 
+                      </Transition>
+
+                      <Transition name="slide-fade">
+                        <b v-if="experience.isRemote"> | </b> 
+                      </Transition>
+
+                      <Transition name="slide-fade">
+                        <span class="reduce-size" v-if="experience.isRemote">{{layout.jobExperience.i18n.Remote.label[app.locale]}}</span> 
+                      </Transition>
+                    </h4>
+                  </Transition>
                 </div>
 
                 <div class="row2">
-                  <p class="reduce-size"> {{transformDateMY(experience.startDate)}} </p> <span class="reduce-size" v-if="experience.isWorking">-</span> <span class="reduce-size" v-else-if="experience.finishDate !==''">-</span> <p class="reduce-size" v-if="experience.isWorking">{{layout.jobExperience.i18n.DateWorking[app.locale]}}</p> <p class="reduce-size" v-else>{{transformDateMY(experience.finishDate)}}</p>
+                  <Transition name="slide-fade"> <p class="reduce-size" v-if="experience.startDate !== ''"> {{transformDateMY(experience.startDate)}} </p> </Transition>
+                  <Transition name="slide-fade"> <span class="reduce-size" v-if="experience.isWorking">-</span> <span class="reduce-size" v-else-if="experience.finishDate !==''">-</span> </Transition>
+                  <Transition name="slide-fade"> <p class="reduce-size" v-if="experience.isWorking">{{layout.jobExperience.i18n.DateWorking[app.locale]}}</p> <p class="reduce-size" v-else>{{transformDateMY(experience.finishDate)}}</p> </Transition>
                 </div>
 
                 <div class="row3">
-                  <p v-html="experience.description"></p>
+                  <Transition name="slide-fade"> <p v-if="experience.description !== ''" v-html="experience.description"></p> </Transition>
                 </div>
 
                 <ol class="row4">
                   <li v-for="task, index in experience.tasks" :key="index">
-                    <p v-html="task.task"></p>
+                    <Transition name="slide-fade">
+                      <p v-if="task.task !== ''" v-html="task.task"></p>
+                    </Transition>
                   </li>
                 </ol>
               </div>
@@ -90,11 +138,19 @@ const transformDateMY = (date) => {
           <Section class="personal-projects" :icon="layout.personalProjects.icon" :title="layout.personalProjects.i18n.Title[app.locale]" >
             <template #body>
               <div class="project" v-for="project, index in layout.personalProjects.content" :key="index">
-                <h4>{{project.title}}</h4>
-                <p v-html="project.description"></p>
+                <Transition name="slide-fade">
+                  <h4 v-show="project.title !== ''">{{project.title}}</h4>
+                </Transition>
+                <Transition name="slide-fade">
+                  <p v-show="project.description" v-html="project.description"></p>
+                </Transition>
                 <div class="links">
-                  <a href="{{ project.repositoryLink }}">{{layout.personalProjects.i18n.Repository.link.label[app.locale]}}</a>
-                  <a href="{{ project.websiteLink }}">{{layout.personalProjects.i18n.Website.link.label[app.locale]}}</a>
+                  <Transition name="slide-fade">
+                    <a v-if="project.repositoryLink !== ''" href="{{ project.repositoryLink }}" target="_blank">{{layout.personalProjects.i18n.Repository.link.label[app.locale]}}</a>
+                  </Transition>
+                  <Transition name="slide-fade">
+                    <a v-if="project.websiteLink !== ''" href="{{ project.websiteLink }}" target="_blank">{{layout.personalProjects.i18n.Website.link.label[app.locale]}}</a>
+                  </Transition>
                 </div>
               </div>
             </template>
@@ -112,21 +168,37 @@ const transformDateMY = (date) => {
               <ol class="bullet-point">
                 <li v-for="education, index in layout.educationHistory.content" :key="index">
                   <div class="bullet">
-                    <svg aria-hidden="true" viewBox="0 0 32 32" focusable="false">
-                      <circle stroke="none" cx="16" cy="16" r="10"></circle>
-                    </svg>
+                    <Transition name="slide-fade">
+                      <svg v-if="education.title !== ''" aria-hidden="true" viewBox="0 0 32 32" focusable="false">
+                        <circle stroke="none" cx="16" cy="16" r="10"></circle>
+                      </svg>
+                    </Transition>
                   </div>
                   <div class="body">
                     <div class="row1">
-                      <h4>{{ education.title }}</h4>
+                      <Transition name="slide-fade">
+                        <h4 v-if="education.title !== ''">{{ education.title }}</h4>
+                      </Transition>
                     </div>
                     
                     <div class="row2">
-                      <p class="reduce-size"> {{transformDateMY(education.startDate)}} </p> <span class="reduce-size">-</span> <p class="reduce-size">{{transformDateMY(education.finishDate)}}</p>
+                      <Transition name="slide-fade">
+                        <p v-if="education.startDate !== ''" class="reduce-size"> {{transformDateMY(education.startDate)}} </p> 
+                      </Transition>
+
+                      <Transition name="slide-fade">
+                        <span v-if="education.finishDate !== ''" class="reduce-size">-</span> 
+                      </Transition>
+
+                      <Transition name="slide-fade">
+                        <p v-if="education.finishDate !== ''" class="reduce-size">{{transformDateMY(education.finishDate)}}</p>
+                      </Transition>
                     </div>
 
                     <div class="row3">
-                      <p>{{ education.institute }}</p>
+                      <Transition name="slide-fade">
+                        <p v-if="education.institute !== ''">{{ education.institute }}</p>
+                      </Transition>
                     </div>
                   </div>
                 </li>
@@ -141,12 +213,24 @@ const transformDateMY = (date) => {
               <ol class="bullet-point">
                 <li v-for="skill, index in layout.technicalSkills.content" :key="index">
                   <div class="bullet">
-                    <svg aria-hidden="true" viewBox="0 0 32 32" focusable="false">
-                      <circle stroke="none" cx="16" cy="16" r="10"></circle>
-                    </svg>
+                    <Transition name="slide-fade">
+                      <svg v-if="skill.skill !== ''" aria-hidden="true" viewBox="0 0 32 32" focusable="false">
+                        <circle stroke="none" cx="16" cy="16" r="10"></circle>
+                      </svg>
+                    </Transition>
                   </div>
                   <div class="body">
-                    <h4>{{ skill.skill }}<span>:</span> <span class="detail">{{ skill.detail }}</span> </h4>
+                    <Transition name="slide-fade">
+                      <h4>{{ skill.skill }}
+                        <Transition name="slide-fade">
+                          <span>:</span> 
+                        </Transition>
+
+                        <Transition name="slide-fade">
+                          <span class="detail">{{ skill.detail }}</span>
+                        </Transition>
+                      </h4>
+                    </Transition>
                   </div>
                 </li>
               </ol>
@@ -160,12 +244,16 @@ const transformDateMY = (date) => {
               <ol class="bullet-point">
                 <li v-for="skill, index in layout.personalSkills.content" :key="index">
                   <div class="bullet">
-                    <svg aria-hidden="true" viewBox="0 0 32 32" focusable="false">
-                      <circle stroke="none" cx="16" cy="16" r="10"></circle>
-                    </svg>
+                    <Transition name="slide-fade">
+                      <svg v-if="skill.skill !== ''" aria-hidden="true" viewBox="0 0 32 32" focusable="false">
+                        <circle stroke="none" cx="16" cy="16" r="10"></circle>
+                      </svg>
+                    </Transition>
                   </div>
                   <div>
-                     <h4>{{ skill.skill }}</h4>
+                    <Transition name="slide-fade">
+                      <h4 v-if="skill.skill !== ''">{{ skill.skill }}</h4>
+                    </Transition>
                   </div>
                 </li>
               </ol>
@@ -179,12 +267,16 @@ const transformDateMY = (date) => {
               <ol class="bullet-point">
                 <li v-for="certification, index in layout.certifications.content" :key="index">
                   <div class="bullet">
-                    <svg aria-hidden="true" viewBox="0 0 32 32" focusable="false">
-                      <circle stroke="none" cx="16" cy="16" r="10"></circle>
-                    </svg>
+                    <Transition name="slide-fade">
+                      <svg v-if="certification.certification !== ''" aria-hidden="true" viewBox="0 0 32 32" focusable="false">
+                        <circle stroke="none" cx="16" cy="16" r="10"></circle>
+                      </svg>
+                    </Transition>
                   </div>
                   <div>
-                    <h4>{{ certification.certification }}</h4>
+                    <Transition v-if="certification.certification !== ''" name="slide-fade">
+                      <h4>{{ certification.certification }}</h4>
+                    </Transition>
                   </div>
                 </li>
               </ol>
@@ -198,12 +290,16 @@ const transformDateMY = (date) => {
               <ol class="bullet-point">
                 <li v-for="hobby, index in layout.hobbies.content" :key="index">
                   <div class="bullet">
-                    <svg aria-hidden="true" viewBox="0 0 32 32" focusable="false">
-                      <circle stroke="none" cx="16" cy="16" r="10"></circle>
-                    </svg>
+                    <Transition name="slide-fade">
+                      <svg v-if="hobby.hobby" aria-hidden="true" viewBox="0 0 32 32" focusable="false">
+                        <circle stroke="none" cx="16" cy="16" r="10"></circle>
+                      </svg>
+                    </Transition>
                   </div>
                   <div>
-                    <h4>{{ hobby.hobby }}</h4>
+                    <Transition name="slide-fade">
+                      <h4 v-if="hobby.hobby !== ''">{{ hobby.hobby }}</h4>
+                    </Transition>
                   </div>
                 </li>
               </ol>

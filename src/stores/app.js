@@ -8,9 +8,7 @@ export const useAppStore = defineStore("appStore", {
   },
   actions: {
     changeLocale(newLocale){
-      // console.log(newLocale)
       this.locale = newLocale
-      console.log(this.locale);
     }
   }
 });
