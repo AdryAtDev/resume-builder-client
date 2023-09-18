@@ -31,7 +31,7 @@
 			<span style="">{{ editor.storage.characterCount.characters() }}/{{
 				characterLimit
 			}}
-			{{ i18.i18n.characterCount[i18.i18n.locale] }}</span>
+			{{ i18n.i18n.characterCount[i18n.i18n.locale] }}</span>
 			<!-- <span> {{ editor.storage.characterCount.words() }} words </span> -->
 		</div>
 	</div>
@@ -41,6 +41,7 @@
 import StarterKit from '@tiptap/starter-kit';
 import { Editor, EditorContent } from '@tiptap/vue-3';
 import CharacterCount from '@tiptap/extension-character-count';
+import { useAppStore } from '@/stores/app';
 import { useLayout1Store } from '@/stores/layout1';
 import {Icon} from '@iconify/vue';
 
@@ -68,7 +69,8 @@ export default {
 	data() {
 		return {
 			editor: null,
-			i18: useLayout1Store()
+			i18n: useLayout1Store(),
+			locale: useAppStore().locale,
 		};
 	},
 

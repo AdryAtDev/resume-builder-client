@@ -1,4 +1,5 @@
 <script setup>
+import { useAppStore } from '@/stores/app';
 import { useLayout1Store } from '@/stores/layout1.js';
 import { Icon } from '@iconify/vue';
 import InputText from '@/components/forms/InputText.vue';
@@ -8,7 +9,7 @@ import IconBtn from '@/components/forms/IconBtn.vue'
 import ConfirmationBtn from '@/components/ConfirmationBtn.vue';
 
 const layout = useLayout1Store();
-const locale = layout.i18n.locale;
+const locale = useAppStore().locale;
 
 const allowDrop = (draggingNode, dropNode, type) => {
     if (type === 'inner') {
@@ -21,7 +22,7 @@ const allowDrop = (draggingNode, dropNode, type) => {
 
 <template>
   <div id="builder1">
-    <h1>Layout 1 Builder</h1>
+    <h1>{{layout.i18n.pageTitle[locale]}}</h1>
 
     <div class="sections-wrapper" v-for="section, index in layout.resume" :key="index">
       <!-- BEGIN HEAD -->

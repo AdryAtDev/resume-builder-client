@@ -1,9 +1,10 @@
 <script setup>
+import { useAppStore } from '@/stores/app';
 import {useLayout1Store} from '@/stores/layout1.js';
 import Section from '@/components/resume/Section.vue';
 
 const layout = useLayout1Store();
-const locale = layout.i18n.locale;
+const locale = useAppStore().locale;
 
 const transformDateMY = (date) => {
   if (date !== '') {
