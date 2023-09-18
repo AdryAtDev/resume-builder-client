@@ -14,6 +14,10 @@ defineProps({
   icon: {
     type: String,
     required: false,
+  },
+  titleColor: {
+    type: String,
+    required: false
   }
 })
 
@@ -36,7 +40,7 @@ const limitString = (data, words) => {
         <Icon class="icon" :icon="icon" />
       </div>
       <div class="col2">
-        <h3 v-text="limitString(title, 20)"></h3>
+        <h3 v-text="limitString(title, 20)" :style="{color: (titleColor !== '') ? titleColor : 'inherit'}"></h3>
         <p v-html="limitString(description, 40)"></p>
       </div>
       <div class="col3">

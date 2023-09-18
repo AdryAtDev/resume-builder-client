@@ -10,7 +10,11 @@ import Resume from './Resume.vue';
   </main>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
+h3{
+  color: var(--celestial-blue);
+}
+
 #layout1{
   display: grid;
   grid-template-columns: 100%;
