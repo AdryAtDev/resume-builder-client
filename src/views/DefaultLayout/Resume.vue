@@ -380,6 +380,7 @@ const transformDateMY = (date) => {
 }
   
 #resume1{
+  
   &>.resume-wrapper{
     background-color: var(--alabaster);
     padding: 1rem;
@@ -570,6 +571,20 @@ const transformDateMY = (date) => {
 
     }
 
+  }
+}
+
+@media only screen and (min-width: 1649px) {
+  #resume1{
+  height: 400vh;
+  position: relative;
+  
+    &>.resume-wrapper{
+      width: 50%;
+      position: fixed;  
+      overflow-y: scroll; 
+      height: 100vh;
+    }
   }
 }
 </style>
