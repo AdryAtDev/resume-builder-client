@@ -67,7 +67,7 @@ const transformDateMY = (date) => {
         <div class="left-group">
 
           <!-- BEGIN JOB EXPERIENCE -->
-          <Section class="job-experience" :icon="layout.jobExperience.icon" :title="layout.jobExperience.i18n.Title[app.locale]" >
+          <Section class="job-experience" :icon="layout.jobExperience.icon" :title="layout.jobExperience.i18n.Title[app.locale]" v-show="layout.jobExperience.content.length > 0" >
             <template #body>
               <div class="experience" v-for="experience, index in layout.jobExperience.content" :key="index">
                 <div class="row1">
@@ -135,7 +135,7 @@ const transformDateMY = (date) => {
           <!-- END JOB EXPERIENCE -->
 
           <!-- BEGIN PERSONAL PROJECTS -->
-          <Section class="personal-projects" :icon="layout.personalProjects.icon" :title="layout.personalProjects.i18n.Title[app.locale]" >
+          <Section class="personal-projects" :icon="layout.personalProjects.icon" :title="layout.personalProjects.i18n.Title[app.locale]" v-if="layout.personalProjects.content.length > 0">
             <template #body>
               <div class="project" v-for="project, index in layout.personalProjects.content" :key="index">
                 <Transition name="slide-fade">
@@ -163,7 +163,7 @@ const transformDateMY = (date) => {
         <!-- BEGIN RIGHT GROUP -->
         <div class="right-group">
           <!-- BEGIN EDUCATION HISTORY -->
-          <Section class="education-history" :icon="layout.educationHistory.icon" :title="layout.educationHistory.i18n.Title[app.locale]" >
+          <Section class="education-history" :icon="layout.educationHistory.icon" :title="layout.educationHistory.i18n.Title[app.locale]" v-show="layout.educationHistory.content.length > 0" >
             <template #body>
               <ol class="bullet-point">
                 <li v-for="education, index in layout.educationHistory.content" :key="index">
@@ -208,7 +208,7 @@ const transformDateMY = (date) => {
           <!-- END EDUCATION HISTORY -->
 
           <!-- BEGIN TECHNICAL SKILLS -->
-          <Section class="technical-skills" :icon="layout.technicalSkills.icon" :title="layout.technicalSkills.i18n.Title[app.locale]" >
+          <Section class="technical-skills" :icon="layout.technicalSkills.icon" :title="layout.technicalSkills.i18n.Title[app.locale]" v-show="layout.technicalSkills.content.length > 0" >
             <template #body>
               <ol class="bullet-point">
                 <li v-for="skill, index in layout.technicalSkills.content" :key="index">
@@ -239,7 +239,7 @@ const transformDateMY = (date) => {
           <!-- END TECHNICAL SKILLS -->
 
           <!-- BEGIN PERSONAL SKILLS -->
-          <Section class="personal-skills" :icon="layout.personalSkills.icon" :title="layout.personalSkills.i18n.Title[app.locale]" >
+          <Section class="personal-skills" :icon="layout.personalSkills.icon" :title="layout.personalSkills.i18n.Title[app.locale]" v-show="layout.personalSkills.content.length > 0" >
             <template #body>
               <ol class="bullet-point">
                 <li v-for="skill, index in layout.personalSkills.content" :key="index">
@@ -262,7 +262,7 @@ const transformDateMY = (date) => {
           <!-- END PERSONAL SKILLS -->
 
           <!-- BEGIN CERTIFICATIONS -->
-          <Section class="certifications" :icon="layout.certifications.icon" :title="layout.certifications.i18n.Title[app.locale]" >
+          <Section class="certifications" :icon="layout.certifications.icon" :title="layout.certifications.i18n.Title[app.locale]" v-show="layout.certifications.content.length > 0" >
             <template #body>
               <ol class="bullet-point">
                 <li v-for="certification, index in layout.certifications.content" :key="index">
@@ -285,7 +285,7 @@ const transformDateMY = (date) => {
           <!-- END CERTIFICATIONS -->
 
           <!-- BEGIN HOBBIES -->
-          <Section class="hobbies" :icon="layout.hobbies.icon" :title="layout.hobbies.i18n.Title[app.locale]" >
+          <Section class="hobbies" :icon="layout.hobbies.icon" :title="layout.hobbies.i18n.Title[app.locale]" v-show="layout.hobbies.content.length > 0" >
             <template #body>
               <ol class="bullet-point">
                 <li v-for="hobby, index in layout.hobbies.content" :key="index">

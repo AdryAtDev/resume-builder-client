@@ -615,30 +615,7 @@ export const useLayout1Store = defineStore("layout1", {
     const jobExperience = reactive({
       id: "job-experience-section",
       label: "job-experience-section",
-      content: [{
-        id: uid(),
-        label: "job-experience",
-        position: "",
-        description: "",
-        employer: "",
-        city: "",
-        country: "",
-        startDate: "",
-        finishDate: "",
-        confirmDelete: false,
-        isHovered: false,
-        isRemote: false,
-        isWorking: false,
-        tasks: [
-          {
-            id: uid(),
-            label: "job-experience-task",
-            task: "",
-            confirmDelete: false,
-            isHovered: false,
-          },
-        ],
-      }],
+      content: [],
       icon: "teenyicons:bulb-on-outline",
       isHovered: false,
       i18n: i18n.jobExperience
@@ -648,16 +625,7 @@ export const useLayout1Store = defineStore("layout1", {
     const educationHistory = reactive({
       id: "education-history-section",
       label: "education-history-section",
-      content: [{
-        id: uid(),
-        label: "education-history",
-        title: "",
-        institute: "",
-        startDate: "",
-        finishDate: "",
-        confirmDelete: false,
-        isHovered: false,
-      }],
+      content: [],
       icon: "file-icons:docz",
       isHovered: false,
       i18n: i18n.educationHistory
@@ -666,14 +634,7 @@ export const useLayout1Store = defineStore("layout1", {
     const technicalSkills = reactive({
       id: "technical-skills-section",
       label: "technical-skills-section",
-      content: [{
-        id: uid(),
-        label: "technical-skills",
-        skill: "",
-        detail: "",
-        confirmDelete: false,
-        isHovered: false,
-      }],
+      content: [],
       icon: "ri:sound-module-line",
       isHovered: false,
       i18n: i18n.technicalSkills
@@ -682,13 +643,7 @@ export const useLayout1Store = defineStore("layout1", {
     const personalSkills = reactive({
       id: "personal-skills-section",
       label: "personal-skills-section",
-      content: [{
-        id: uid(),
-        label: "personal-skills",
-        skill: "",
-        confirmDelete: false,
-        isHovered: false,
-      }],
+      content: [],
       icon: "bi:person-check",
       isHovered: false,
       i18n: i18n.personalSkills
@@ -697,13 +652,7 @@ export const useLayout1Store = defineStore("layout1", {
     const certifications = reactive({
       id: "certifications-section",
       label: "certifications-section",
-      content: [{
-        id: uid(),
-        label: "certifications",
-        certification: "",
-        confirmDelete: false,
-        isHovered: false,
-      }],
+      content: [],
       icon: "carbon:course",
       isHovered: false,
       i18n: i18n.certifications
@@ -712,13 +661,7 @@ export const useLayout1Store = defineStore("layout1", {
     const hobbies = reactive({
       id: "hobbies-section",
       label: "hobbies-section",
-      content: [{
-        id: uid(),
-        label: "hobbies",
-        hobby: "",
-        confirmDelete: false,
-        isHovered: false,
-      }],
+      content: [],
       icon: "streamline:travel-places-theater-mask-hobby-theater-masks-drama-event-show-entertainment",
       isHovered: false,
       i18n: i18n.hobbies
@@ -727,16 +670,7 @@ export const useLayout1Store = defineStore("layout1", {
     const personalProjects = reactive({
       id: "personal-projects-section",
       label: "personal-projects-section",
-      content: [{
-        id: uid(),
-        label: "personal-projects",
-        tittle: "",
-        description: "",
-        repositoryLink: "",
-        websiteLink: "",
-        confirmDelete: false,
-        isHovered: false,
-      }],
+      content: [],
       icon: "ph:suitcase-simple-duotone",
       isHovered: false,
       i18n: i18n.personalProjects

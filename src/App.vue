@@ -9,17 +9,17 @@ const appStore = useAppStore();
 <template>
   <header id="header">
     <div class="languages">
-      <button class="btn-language" @click="appStore.changeLocale('en')">
+      <button class="btn btn-language" @click="appStore.changeLocale('en')">
         <Icon icon="twemoji:flag-us-outlying-islands" />
         <p>English</p>
       </button>
-      <button class="btn-language" @click="appStore.changeLocale('es')" >
+      <button class="btn btn-language" @click="appStore.changeLocale('es')" >
         <Icon icon="twemoji:flag-spain" />
         <p>Español</p>
       </button>
     </div>
-    <nav>
-      <RouterLink to="/">Dashboard</RouterLink>
+    <nav class="navigation">
+      <RouterLink to="/">{{ appStore.i8n.dashboard[appStore.locale] }}</RouterLink>
     </nav>
   </header>
 
@@ -33,12 +33,7 @@ const appStore = useAppStore();
   align-items: center;
   justify-content: space-between;
 
-  .languages{
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    
-    .btn-language{
+  .btn{
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -47,6 +42,24 @@ const appStore = useAppStore();
       background-color: transparent;
       color: var(--celestial-blue);
     }
+
+    /* BEGIN LANGUAGES */
+  .languages{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    
+    .btn-language{
+    }
   }
+  /* END LANGUAGES */
+
+  /* BEGIN NAVIGATION */
+  .navigation{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  /* END NAVIGATION */
 }
 </style>
