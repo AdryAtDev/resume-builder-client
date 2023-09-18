@@ -18,6 +18,14 @@ defineProps({
   titleColor: {
     type: String,
     required: false
+  },
+  isChild: {
+    type: Boolean,
+    required: false,
+  },
+  isChildOfChild: {
+    type: Boolean,
+    required: false
   }
 })
 
@@ -40,8 +48,10 @@ const limitString = (data, words) => {
         <Icon class="icon" :icon="icon" />
       </div>
       <div class="col2">
-        <h3 v-text="limitString(title, 20)" :style="{color: (titleColor !== '') ? titleColor : 'inherit'}"></h3>
-        <p v-html="limitString(description, 40)"></p>
+        <h3 v-if="isChild == false && !isChildOfChild" v-text="limitString(title, 50)" :style="{color: (titleColor !== '') ? titleColor : 'inherit'}"></h3>
+        <h4 v-if="isChild" v-text="limitString(title, 50)" :style="{color: (titleColor !== '') ? titleColor : 'inherit'}"></h4>
+        <h5 v-if="isChildOfChild" v-text="limitString(title, 50)" :style="{color: (titleColor !== '') ? titleColor : 'inherit'}"></h5>
+        <p v-html="limitString(description, 50)"></p>
       </div>
       <div class="col3">
         <Icon class="icon" :icon="isCollapsed == true ? 'ri:arrow-down-s-line' : 'ri:arrow-up-s-line'" />

@@ -21,7 +21,7 @@ h3{
 */
 .slide-fade-enter-active {
   // transition: all 0.3s ease-out;
-  transition: all 2s ease-out;
+  transition: all 0.3s ease-out;
 }
 
 .slide-fade-leave-active {

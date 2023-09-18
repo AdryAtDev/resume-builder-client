@@ -273,7 +273,7 @@ const transformDateMY = (date) => {
                       </svg>
                     </Transition>
                   </div>
-                  <div>
+                  <div class="certification">
                     <Transition v-if="certification.certification !== ''" name="slide-fade">
                       <h4>{{ certification.certification }}</h4>
                     </Transition>
@@ -576,7 +576,7 @@ const transformDateMY = (date) => {
 
 @media only screen and (min-width: 1649px) {
   #resume1{
-  height: 400vh;
+  // height: 400vh;
   position: relative;
   
     &>.resume-wrapper{
