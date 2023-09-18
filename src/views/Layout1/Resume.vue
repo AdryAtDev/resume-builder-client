@@ -1,7 +1,7 @@
 <script setup>
 import { useAppStore } from '@/stores/app';
 import {useLayout1Store} from '@/stores/layout1.js';
-import Section from '@/components/resume/Section.vue';
+import Section from '@/components/viewer/Section.vue';
 
 const layout = useLayout1Store();
 const app = useAppStore();
