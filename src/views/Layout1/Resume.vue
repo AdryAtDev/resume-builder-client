@@ -50,8 +50,8 @@ const transformDateMY = (date) => {
       <!-- END HEAD -->
 
       <!-- BEGIN PROFILE INFO -->
-      <div class="row2 profile-info">
-        <Section :icon="layout.profileInfo.icon" :title="layout.profileInfo.i18n.Title[app.locale]">
+      <div class="row2 ">
+        <Section class="profile-info" :icon="layout.profileInfo.icon" :title="layout.profileInfo.i18n.Title[app.locale]" v-show="layout.profileInfo.content[0].profileInfo.length > 7" >
           <template #body>
             <Transition name="slide-fade">
               <p v-if="layout.profileInfo.content[0].profileInfo !== ''" v-html="layout.profileInfo.content[0].profileInfo"></p>

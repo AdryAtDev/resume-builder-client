@@ -39,8 +39,8 @@ const allowDrop = (draggingNode, dropNode, type) => {
       <!-- BEGIN PROFILE INFO -->
       <Collapse :icon="section.icon" :title="section.i18n.Title[app.locale]" :description="section.i18n.Description[app.locale]" v-if="section.label == 'profile-info-section'">
         <template #body>
-          <div class="profile-info">
-            <RichText characterLimit="500" typeOfToolbar="complex" v-model="section.content[0].profileInfo" />
+          <div class="profile-info" v-for="profile, index in section.content" :key="index">
+            <RichText characterLimit="500" typeOfToolbar="complex" v-model="profile.profileInfo" />
           </div>
         </template>
       </Collapse>
