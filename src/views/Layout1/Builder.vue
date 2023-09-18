@@ -5,6 +5,7 @@ import InputText from '@/components/forms/InputText.vue';
 import Collapse from '@/components/Collapse.vue';
 import RichText from '@/components/RichText.vue';
 import IconBtn from '@/components/forms/IconBtn.vue'
+import ConfirmationBtn from '@/components/ConfirmationBtn.vue';
 
 const layout = useLayout1Store();
 const locale = layout.i18n.locale;
@@ -47,7 +48,7 @@ const allowDrop = (draggingNode, dropNode, type) => {
       <!-- BEGIN JOB EXPERIENCE -->
       <Collapse :icon="section.icon" :title="section.i18n.Title[locale]" :description="section.i18n.Description[locale]" v-if="section.label == 'job-experience-section'" v-for="experienceIndex in 1" :key="experienceIndex">
         <template #body>
-          <IconBtn icon="material-symbols:add" @click="layout.addJobExperience()" />
+          <IconBtn icon="material-symbols:add" label="Add an Experience" @click="layout.addJobExperience()" />
           <el-tree :allow-drop="allowDrop" :data="section.content" empty-text="i18n.empty[locale]" draggable default-expand-all node-key="id">
             <template #default="{ data }">
               <Collapse class="section" :title="data.position" :description="data.employer">
@@ -62,17 +63,17 @@ const allowDrop = (draggingNode, dropNode, type) => {
                       <el-checkbox class="checkbox" v-model="data.isWorking" :label="section.i18n.Working.label[locale]" size="small" border />
                       <el-checkbox class="checkbox" v-model="data.isRemote" :label="section.i18n.Remote.label[locale]" size="small" border />
                       <el-date-picker class="date-picker" v-model="data.startDate" type="month" format="MM-YYYY" :placeholder="section.i18n.StartDate.placeholder[locale]" />
-                      <el-date-picker class="date-picker" v-model="data.finishDate" type="month" format="MM-YYYY" :placeholder="section.i18n.FinishDate.placeholder[locale]" />
+                      <el-date-picker class="date-picker" v-model="data.finishDate" type="month" format="MM-YYYY" :placeholder="section.i18n.FinishDate.placeholder[locale]" v-if="data.isWorking == false" />
                     </div>
                     <RichText class="rich-text" characterLimit="150" typeOfToolbar="normal" v-model="data.description" />
 
                     <!-- BEGIN TASKS -->
                     <el-tree :allow-drop="allowDrop" :data="data.tasks" empty-text="i18n.empty[locale]" draggable default-expand-all node-key="id">
                       <template #default="{ data }">
-                        <Collapse :title="section.i18n.Title[locale]" :description="section.i18n.Description[locale]" >
+                        <Collapse :title="section.i18n.Tasks[locale]" :description="data.task" >
                           <template #body>
                             <div class="tasks item">
-                              <Icon class="icon-btn-delete-item" icon="ph:trash-bold" @click="layout.deleteSectionItem(data.id, data.id)" />
+                              <Icon class="icon-btn-delete-item" icon="ph:trash-bold" @click="layout.deleteJobExperienceTask(section.content[experienceIndex - 1].id)" />
                               <RichText characterLimit="120" typeOfToolbar="normal" v-model="data.task" />
                             </div>
                           </template>
@@ -80,13 +81,13 @@ const allowDrop = (draggingNode, dropNode, type) => {
                       </template>
                     </el-tree>
                     <!-- END TASKS -->
-                    <IconBtn icon="material-symbols:add" @click="layout.addJobExperienceTask(section.content[experienceIndex - 1].id)" />
+                    <IconBtn icon="material-symbols:add" label="Add a task" @click="layout.addJobExperienceTask(section.content[experienceIndex - 1].id)" />
                   </div>
                 </template>
               </Collapse>
             </template>
           </el-tree>
-          <IconBtn icon="material-symbols:add" @click="layout.addJobExperience()" />
+          <IconBtn icon="material-symbols:add" label="Add an Experience" @click="layout.addJobExperience()" />
         </template>
       </Collapse>
       <!-- END JOB EXPERIENCE -->
@@ -99,7 +100,16 @@ const allowDrop = (draggingNode, dropNode, type) => {
               <Collapse class="section" :title="data.title" :description="data.institute">
                 <template #body>
                   <div class="education-history">
-                    <Icon class="icon-btn-delete-section" icon="ph:trash-bold" @click="layout.deleteSectionItem(section.id, data.id)" />
+                    <div class="icon-btn-delete-section">
+                      <ConfirmationBtn :title="data.title" :description="data.institute" :cancel="layout.i18n.cancel[locale]" >
+                        <template #label>
+                          <Icon icon="ph:trash-bold"  />
+                        </template>
+                        <template #confirm>
+                          <p @click="layout.deleteSectionItem(section.id, data.id)">{{layout.i18n.confirm[locale]}}</p>
+                        </template>
+                      </ConfirmationBtn>
+                    </div>
                     <InputText :inputId="data.id + '-title'" @input-text="(text) => data.title = text" :label="section.i18n.EducationTitle.label[locale]" :placeholder="section.i18n.EducationTitle.placeholder[locale]" />
                     <InputText :inputId="data.id + '-institute'" @input-text="(text) => data.institute = text" :label="section.i18n.EducationInstitute.label[locale]" :placeholder="section.i18n.EducationInstitute.placeholder[locale]" />
                     <div class="date-picker-group">
@@ -111,7 +121,7 @@ const allowDrop = (draggingNode, dropNode, type) => {
               </Collapse>
             </template>
           </el-tree>
-          <IconBtn icon="material-symbols:add" @click="layout.addEducationHistory()" />
+          <IconBtn icon="material-symbols:add" label="Add Education" @click="layout.addEducationHistory()" />
         </template>
       </Collapse>
       <!-- END EDUCATION HISTORY -->
@@ -132,7 +142,7 @@ const allowDrop = (draggingNode, dropNode, type) => {
               </Collapse>
             </template>
           </el-tree>
-          <IconBtn icon="material-symbols:add" @click="layout.addTechnicalSkills()" />
+          <IconBtn icon="material-symbols:add" label="Add a Skill" @click="layout.addTechnicalSkills()" />
         </template>
       </Collapse>
       <!-- END TECHNICAL SKILLS -->
@@ -148,7 +158,7 @@ const allowDrop = (draggingNode, dropNode, type) => {
               </div>
             </template>
           </el-tree>
-          <IconBtn icon="material-symbols:add" @click="layout.addPersonalSkills()" />
+          <IconBtn icon="material-symbols:add" label="Add a Skill" @click="layout.addPersonalSkills()" />
         </template>
       </Collapse>
       <!-- END PERSONAL SKILLS -->
@@ -164,7 +174,7 @@ const allowDrop = (draggingNode, dropNode, type) => {
               </div>
             </template>
           </el-tree>
-          <IconBtn icon="material-symbols:add" @click="layout.addCertifications()" />
+          <IconBtn icon="material-symbols:add" label="Add a Certification" @click="layout.addCertifications()" />
         </template>
       </Collapse>
       <!-- END CERTIFICATIONS -->
@@ -180,7 +190,7 @@ const allowDrop = (draggingNode, dropNode, type) => {
               </div>
             </template>
           </el-tree>
-          <IconBtn icon="material-symbols:add" @click="layout.addHobbies()" />
+          <IconBtn icon="material-symbols:add" label="Add a Hobby" @click="layout.addHobbies()" />
         </template>
       </Collapse>
       <!-- END HOBBIES -->
@@ -190,7 +200,7 @@ const allowDrop = (draggingNode, dropNode, type) => {
         <template #body>
           <el-tree :allow-drop="allowDrop" :data="section.content" empty-text="i18n.empty[locale]" draggable default-expand-all node-key="id">
             <template #default="{ data }">
-              <Collapse class="section" title="data.title" description="data.description">
+              <Collapse class="section" :title="data.title" :description="data.description">
                 <template #body>
                   <div class="personal-projects">
                     <Icon class="icon-btn-delete-section" icon="ph:trash-bold" @click="layout.deleteSectionItem(section.id, data.id)" />
@@ -203,7 +213,7 @@ const allowDrop = (draggingNode, dropNode, type) => {
               </Collapse>
             </template>
           </el-tree>
-          <IconBtn icon="material-symbols:add" @click="layout.addPersonalProjects()" />
+          <IconBtn icon="material-symbols:add" label="Add a Personal Project" @click="layout.addPersonalProjects()" />
         </template>
       </Collapse>
       <!-- END PERSONAL PROJECTS -->
@@ -319,6 +329,24 @@ const allowDrop = (draggingNode, dropNode, type) => {
     gap: 1rem;
   }
   // END TECHNICAL SKILLS
+
+  // BEGIN PERSONAL SKILLS
+  .personal-skills{
+    width: 94%;
+  }
+  // END PERSONAL SKILLS
+
+  // BEGIN CERTIFICATIONS
+  .certifications{
+    width: 94%;
+  }
+  // END CERTIFICATIONS
+
+  // BEGIN HOBBIES
+  .hobbies{
+    width: 94%;
+  }
+  // END HOBBIES
 
   // BEGIN PERSONAL PROJECTS
   .personal-projects{

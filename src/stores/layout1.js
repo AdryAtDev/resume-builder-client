@@ -17,14 +17,22 @@ export const useLayout1Store = defineStore("layout1", {
         en: "characters",
         es: "caracteres",
       },
+      confirm:{
+        en: "Confirm",
+        es: "Confirmar"
+      },
+      cancel: {
+        en: "Cancel",
+        es: "Cancelar"
+      },
       head: {
         Title: {
           en: "I am",
           es: "Yo soy"
         },
         Description: {
-          en: "something",
-          es: "Something"
+          en: "Tell recruiters your name and your title!",
+          es: "¡Dile a los reclutadores tu nombre y tu título!"
         },
         Name: {
           label: {
@@ -165,8 +173,8 @@ export const useLayout1Store = defineStore("layout1", {
           es: "Breve descripción.",
         },
         Tasks: {
-          en: "Tasks",
-          es: "Labores",
+          en: "Task",
+          es: "Labor",
         },
         BtnAddMore: {
           en: "Add One More Experience",
@@ -898,6 +906,10 @@ export const useLayout1Store = defineStore("layout1", {
       ).content;
       item.splice(item.indexOf(item.find((item) => item.id == itemId)), 1);
     },
+    deleteJobExperienceTask(experienceId){
+      const item = this.resume.find((section) => section.id == "job-experience-section").content.find((experience) => experience.id == experienceId).tasks
+      item.splice(item.indexOf(item.find(item => item.id == experienceId)), 1);
+    }
     // END DELETE
   },
 });

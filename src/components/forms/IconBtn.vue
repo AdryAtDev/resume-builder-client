@@ -5,6 +5,10 @@ defineProps({
   icon: {
     type: String,
     required: true
+  },
+  label: {
+    type: String,
+    required: true
   }
 })
 </script>
@@ -13,7 +17,7 @@ defineProps({
   <div id="icon-btn">
     <Icon class="icon" :icon="icon" />
     <button type="button" name="button">
-      <p>Add One More Experience</p>
+      <p>{{ label }}</p>
     </button>
   </div>
 </template>
