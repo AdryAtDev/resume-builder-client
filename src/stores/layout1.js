@@ -589,11 +589,11 @@ export const useLayout1Store = defineStore("layout1", {
           name: "",
           position: "",
           confirmDelete: false,
-          isFolded: true,
+          isHovered: false,
         }
       ],
       icon: "fluent-emoji-high-contrast:memo",
-      isFolded: true,
+      isHovered: false,
       i18n: i18n.head
     })
 
@@ -605,13 +605,13 @@ export const useLayout1Store = defineStore("layout1", {
         label: "profile-info",
         profileInfo: "",
         confirmDelete: false,
-        isFolded: true,
+        isHovered: false,
       }],
       icon: "iconoir:profile-circle",
-      isFolded: true,
+      isHovered: false,
       i18n: i18n.profileInfo
     })
-
+    
     const jobExperience = reactive({
       id: "job-experience-section",
       label: "job-experience-section",
@@ -626,7 +626,7 @@ export const useLayout1Store = defineStore("layout1", {
         startDate: "",
         finishDate: "",
         confirmDelete: false,
-        isFolded: true,
+        isHovered: false,
         isRemote: false,
         isWorking: false,
         tasks: [
@@ -635,12 +635,12 @@ export const useLayout1Store = defineStore("layout1", {
             label: "job-experience-task",
             task: "",
             confirmDelete: false,
-            isFolded: true,
+            isHovered: false,
           },
         ],
       }],
       icon: "teenyicons:bulb-on-outline",
-      isFolded: true,
+      isHovered: false,
       i18n: i18n.jobExperience
 
     })
@@ -656,10 +656,10 @@ export const useLayout1Store = defineStore("layout1", {
         startDate: "",
         finishDate: "",
         confirmDelete: false,
-        isFolded: true,
+        isHovered: false,
       }],
       icon: "file-icons:docz",
-      isFolded: true,
+      isHovered: false,
       i18n: i18n.educationHistory
     })
 
@@ -672,10 +672,10 @@ export const useLayout1Store = defineStore("layout1", {
         skill: "",
         detail: "",
         confirmDelete: false,
-        isFolded: true,
+        isHovered: false,
       }],
       icon: "ri:sound-module-line",
-      isFolded: true,
+      isHovered: false,
       i18n: i18n.technicalSkills
     })
 
@@ -687,10 +687,10 @@ export const useLayout1Store = defineStore("layout1", {
         label: "personal-skills",
         skill: "",
         confirmDelete: false,
-        isFolded: true,
+        isHovered: false,
       }],
       icon: "bi:person-check",
-      isFolded: true,
+      isHovered: false,
       i18n: i18n.personalSkills
     })
 
@@ -702,10 +702,10 @@ export const useLayout1Store = defineStore("layout1", {
         label: "certifications",
         certification: "",
         confirmDelete: false,
-        isFolded: true,
+        isHovered: false,
       }],
       icon: "carbon:course",
-      isFolded: true,
+      isHovered: false,
       i18n: i18n.certifications
     })
 
@@ -717,10 +717,10 @@ export const useLayout1Store = defineStore("layout1", {
         label: "hobbies",
         hobby: "",
         confirmDelete: false,
-        isFolded: true,
+        isHovered: false,
       }],
       icon: "streamline:travel-places-theater-mask-hobby-theater-masks-drama-event-show-entertainment",
-      isFolded: true,
+      isHovered: false,
       i18n: i18n.hobbies
     })
 
@@ -735,10 +735,10 @@ export const useLayout1Store = defineStore("layout1", {
         repositoryLink: "",
         websiteLink: "",
         confirmDelete: false,
-        isFolded: true,
+        isHovered: false,
       }],
       icon: "ph:suitcase-simple-duotone",
-      isFolded: true,
+      isHovered: false,
       i18n: i18n.personalProjects
     })
 
@@ -776,7 +776,7 @@ export const useLayout1Store = defineStore("layout1", {
           label: "profile-info",
           profileInfo: "",
           confirmDelete: false,
-          isFolded: true,
+          isHovered: false,
         });
     },
     addJobExperience() {
@@ -793,7 +793,7 @@ export const useLayout1Store = defineStore("layout1", {
           startDate: "",
           finishDate: "",
           confirmDelete: false,
-          isFolded: true,
+          isHovered: false,
           isRemote: false,
           isWorking: false,
           tasks: [
@@ -802,7 +802,7 @@ export const useLayout1Store = defineStore("layout1", {
               label: "job-experience-task",
               task: "",
               confirmDelete: false,
-              isFolded: true,
+              isHovered: false,
             },
           ],
         });
@@ -815,7 +815,7 @@ export const useLayout1Store = defineStore("layout1", {
           label: "personal-skills",
           skill: "",
           confirmDelete: false,
-          isFolded: true,
+          isHovered: false,
         });
     },
     addEducationHistory() {
@@ -829,7 +829,7 @@ export const useLayout1Store = defineStore("layout1", {
           startDate: "",
           finishDate: "",
           confirmDelete: false,
-          isFolded: true,
+          isHovered: false,
         });
     },
     addTechnicalSkills() {
@@ -841,7 +841,7 @@ export const useLayout1Store = defineStore("layout1", {
           skill: "",
           detail: "",
           confirmDelete: false,
-          isFolded: true,
+          isHovered: false,
         });
     },
     addPersonalSkills() {
@@ -852,7 +852,7 @@ export const useLayout1Store = defineStore("layout1", {
           label: "personal-skills",
           skill: "",
           confirmDelete: false,
-          isFolded: true,
+          isHovered: false,
         });
     },
     addCertifications() {
@@ -863,7 +863,7 @@ export const useLayout1Store = defineStore("layout1", {
           label: "certifications",
           certification: "",
           confirmDelete: false,
-          isFolded: true,
+          isHovered: false,
         });
     },
     addHobbies() {
@@ -874,7 +874,7 @@ export const useLayout1Store = defineStore("layout1", {
           label: "hobbies",
           hobby: "",
           confirmDelete: false,
-          isFolded: true,
+          isHovered: false,
         });
     },
     addPersonalProjects() {
@@ -888,7 +888,7 @@ export const useLayout1Store = defineStore("layout1", {
           repositoryLink: "",
           websiteLink: "",
           confirmDelete: false,
-          isFolded: true,
+          isHovered: false,
         });
     },
     // END CREATE

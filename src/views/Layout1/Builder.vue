@@ -52,13 +52,13 @@ const allowDrop = (draggingNode, dropNode, type) => {
           <IconBtn icon="material-symbols:add" label="Add an Experience" @click="layout.addJobExperience()" />
           <el-tree :allow-drop="allowDrop" :data="section.content" empty-text="i18n.empty[app.locale]" draggable default-expand-all node-key="id">
             <template #default="{ data }">
-              <Collapse class="section" :title="data.position" :description="data.employer">
+              <Collapse class="section" :title="data.position" :description="data.employer" @mouseover="data.isHovered = true" @mouseleave="data.isHovered = false">
                 <template #body>
                   <div class="job-experience">
                     <div class="icon-btn-delete-section">
                       <ConfirmationBtn :title="data.position" :description="data.employer" :cancel="layout.i18n.cancel[app.locale]" >
                         <template #label>
-                          <Icon icon="ph:trash-bold" />
+                          <Icon class="iconTrash" :class="{isHovered: data.isHovered}" icon="ph:trash-bold" />
                         </template>
                         <template #confirm>
                           <p @click="layout.deleteSectionItem(section.id, data.id)">{{layout.i18n.confirm[app.locale]}}</p>
@@ -80,13 +80,13 @@ const allowDrop = (draggingNode, dropNode, type) => {
                     <!-- BEGIN TASKS -->
                     <el-tree :allow-drop="allowDrop" :data="data.tasks" empty-text="i18n.empty[app.locale]" draggable default-expand-all node-key="id">
                       <template #default="{ data }">
-                        <Collapse :title="section.i18n.Tasks[app.locale]" :description="data.task" >
+                        <Collapse :title="section.i18n.Tasks[app.locale]" :description="data.task" @mouseover="data.isHovered = true" @mouseleave="data.isHovered = false" >
                           <template #body>
                             <div class="tasks item">
                               <div class="icon-btn-delete-item">
                                 <ConfirmationBtn :title="section.i18n.Tasks[app.locale]" :description="data.task" :cancel="layout.i18n.cancel[app.locale]" >
                                   <template #label>
-                                    <Icon icon="ph:trash-bold"  />
+                                    <Icon class="iconTrash" :class="{isHovered: data.isHovered}" icon="ph:trash-bold"  />
                                   </template>
                                   <template #confirm>
                                     <p @click="layout.deleteJobExperienceTask(section.content[experienceIndex - 1].id)">{{layout.i18n.confirm[app.locale]}}</p>
@@ -116,13 +116,13 @@ const allowDrop = (draggingNode, dropNode, type) => {
         <template #body>
           <el-tree :allow-drop="allowDrop" :data="section.content" empty-text="i18n.empty[app.locale]" draggable default-expand-all node-key="id">
             <template #default="{ data }">
-              <Collapse class="section" :title="data.title" :description="data.institute">
+              <Collapse class="section" :title="data.title" :description="data.institute" @mouseover="data.isHovered = true" @mouseleave="data.isHovered = false">
                 <template #body>
                   <div class="education-history">
                     <div class="icon-btn-delete-section">
                       <ConfirmationBtn :title="data.title" :description="data.institute" :cancel="layout.i18n.cancel[app.locale]" >
                         <template #label>
-                          <Icon icon="ph:trash-bold"  />
+                          <Icon class="iconTrash" :class="{isHovered: data.isHovered}" icon="ph:trash-bold"  />
                         </template>
                         <template #confirm>
                           <p @click="layout.deleteSectionItem(section.id, data.id)">{{layout.i18n.confirm[app.locale]}}</p>
@@ -150,13 +150,13 @@ const allowDrop = (draggingNode, dropNode, type) => {
         <template #body>
           <el-tree :allow-drop="allowDrop" :data="section.content" empty-text="i18n.empty[app.locale]" draggable default-expand-all node-key="id">
             <template #default="{ data }">
-              <Collapse class="section" :title="data.skill" :description="data.detail" >
+              <Collapse class="section" :title="data.skill" :description="data.detail" @mouseover="data.isHovered = true" @mouseleave="data.isHovered = false" >
                 <template #body>
                   <div class="technical-skills" >
                     <div class="icon-btn-delete-section">
                       <ConfirmationBtn :title="data.title" :description="data.institute" :cancel="layout.i18n.cancel[app.locale]" >
                         <template #label>
-                          <Icon icon="ph:trash-bold"  />
+                          <Icon class="iconTrash" :class="{isHovered: data.isHovered}" icon="ph:trash-bold"  />
                         </template>
                         <template #confirm>
                           <p @click="layout.deleteSectionItem(section.id, data.id)">{{layout.i18n.confirm[app.locale]}}</p>
@@ -180,11 +180,11 @@ const allowDrop = (draggingNode, dropNode, type) => {
         <template #body>
           <el-tree :allow-drop="allowDrop" :data="section.content" empty-text="i18n.empty[app.locale]" draggable default-expand-all node-key="id">
             <template #default="{ data }">
-              <div class="personal-skills item">
+              <div class="personal-skills item" @mouseover="data.isHovered = true" @mouseleave="data.isHovered = false">
                 <div class="icon-btn-delete-item">
                   <ConfirmationBtn :title="data.title" :description="data.institute" :cancel="layout.i18n.cancel[app.locale]" >
                     <template #label>
-                      <Icon icon="ph:trash-bold"  />
+                      <Icon class="iconTrash" :class="{isHovered: data.isHovered}" icon="ph:trash-bold"  />
                     </template>
                     <template #confirm>
                       <p @click="layout.deleteSectionItem(section.id, data.id)">{{layout.i18n.confirm[app.locale]}}</p>
@@ -205,11 +205,11 @@ const allowDrop = (draggingNode, dropNode, type) => {
         <template #body>
           <el-tree :allow-drop="allowDrop" :data="section.content" empty-text="i18n.empty[app.locale]" draggable default-expand-all node-key="id">
             <template #default="{ data }">
-              <div class="certifications item">
+              <div class="certifications item" @mouseover="data.isHovered = true" @mouseleave="data.isHovered = false">
                 <div class="icon-btn-delete-item">
                   <ConfirmationBtn :title="data.title" :description="data.institute" :cancel="layout.i18n.cancel[app.locale]" >
                     <template #label>
-                      <Icon icon="ph:trash-bold"  />
+                      <Icon class="iconTrash" :class="{isHovered: data.isHovered}" icon="ph:trash-bold"  />
                     </template>
                     <template #confirm>
                       <p @click="layout.deleteSectionItem(section.id, data.id)">{{layout.i18n.confirm[app.locale]}}</p>
@@ -230,11 +230,11 @@ const allowDrop = (draggingNode, dropNode, type) => {
         <template #body>
           <el-tree :allow-drop="allowDrop" :data="section.content" empty-text="i18n.empty[app.locale]" draggable default-expand-all node-key="id">
             <template #default="{ data }">
-              <div class="hobbies item">
+              <div class="hobbies item" @mouseover="data.isHovered = true" @mouseleave="data.isHovered = false">
                 <div class="icon-btn-delete-item">
                   <ConfirmationBtn :title="data.title" :description="data.institute" :cancel="layout.i18n.cancel[app.locale]" >
                     <template #label>
-                      <Icon icon="ph:trash-bold"  />
+                      <Icon class="iconTrash" :class="{isHovered: data.isHovered}" icon="ph:trash-bold"  />
                     </template>
                     <template #confirm>
                       <p @click="layout.deleteSectionItem(section.id, data.id)">{{layout.i18n.confirm[app.locale]}}</p>
@@ -257,11 +257,11 @@ const allowDrop = (draggingNode, dropNode, type) => {
             <template #default="{ data }">
               <Collapse class="section" :title="data.title" :description="data.description">
                 <template #body>
-                  <div class="personal-projects">
+                  <div class="personal-projects" @mouseover="data.isHovered = true" @mouseleave="data.isHovered = false">
                     <div class="icon-btn-delete-section">
                       <ConfirmationBtn :title="data.title" :description="data.institute" :cancel="layout.i18n.cancel[app.locale]" >
                         <template #label>
-                          <Icon icon="ph:trash-bold"  />
+                          <Icon class="iconTrash" :class="{isHovered: data.isHovered}" icon="ph:trash-bold"  />
                         </template>
                         <template #confirm>
                           <p @click="layout.deleteSectionItem(section.id, data.id)">{{layout.i18n.confirm[app.locale]}}</p>
@@ -293,6 +293,15 @@ const allowDrop = (draggingNode, dropNode, type) => {
   gap: 2rem;
   --el-tree-node-content-height: none;
   --el-tree-node-hover-bg-color: transparent;
+}
+
+.iconTrash{
+  color: red;
+  visibility: hidden;
+}
+
+.isHovered{
+  visibility: visible;
 }
 
 #builder1{
