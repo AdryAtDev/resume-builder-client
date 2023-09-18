@@ -735,6 +735,15 @@ export const useLayout1Store = defineStore("layout1", {
     })
 
     return {
+      head,
+      profileInfo,
+      jobExperience,
+      educationHistory,
+      technicalSkills,
+      personalSkills,
+      certifications,
+      hobbies,
+      personalProjects,
       i18n,
       resume: [
         head,

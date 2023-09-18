@@ -18,10 +18,10 @@ const transformDateMY = (date) => {
 
 <template>
   <div id="resume1">
-    <div class="resume-wrapper" v-for="section, index in layout.resume" :key="index">
+    <div class="resume-wrapper">
 
       <!-- BEGIN HEAD -->
-      <div class="row1 head" v-if="section.id == 'head-section'">
+      <div class="row1 head">
         <!-- BEGIN HEAD LEFT -->
         <div class="col1">
           <h1>Lorem ipsum dolor</h1>
@@ -45,10 +45,10 @@ const transformDateMY = (date) => {
       <!-- END HEAD -->
 
       <!-- BEGIN PROFILE INFO -->
-      <div class="row2 profile-info" v-if="section.id == 'profile-info-section'">
-        <Section :icon="section.icon" :title="section.i18n.Title[locale]">
+      <div class="row2 profile-info">
+        <Section :icon="layout.profileInfo.icon" :title="layout.profileInfo.i18n.Title[locale]">
           <template #body>
-            <p v-html="layout.getSection('profile-info-section').content[0].profileInfo"></p>
+            <p v-html="layout.profileInfo.content[0].profileInfo"></p>
           </template>
         </Section>
       </div>
@@ -60,15 +60,15 @@ const transformDateMY = (date) => {
         <div class="left-group">
 
           <!-- BEGIN JOB EXPERIENCE -->
-          <Section class="job-experience" :icon="section.icon" :title="section.i18n.Title[locale]" v-if="section.id == 'job-experience-section'" >
+          <Section class="job-experience" :icon="layout.jobExperience.icon" :title="layout.jobExperience.i18n.Title[locale]" >
             <template #body>
-              <div class="experience" v-for="experience, index in section.content" :key="index">
+              <div class="experience" v-for="experience, index in layout.jobExperience.content" :key="index">
                 <div class="row1">
-                  <p> <strong>{{experience.position}}</strong> <b>|</b> <strong>{{experience.employer}}</strong><b>,</b> {{experience.city}}<span>,</span> {{experience.country}} <span>|</span> <b v-if="experience.isRemote">{{section.i18n.Remote.label[locale]}}</b> </p>
+                  <h4> <strong>{{experience.position}}</strong> <b v-if="experience.employer !=''">|</b> <strong>{{experience.employer}}</strong><b v-if="experience.city !==''">,</b> <span class="reduce-size">{{experience.city}}</span><b v-if="experience.country !==''">,</b> <span class="reduce-size"> {{experience.country}} </span> <b v-if="experience.isRemote">|</b> <span class="reduce-size" v-if="experience.isRemote">{{layout.jobExperience.i18n.Remote.label[locale]}}</span> </h4>
                 </div>
 
                 <div class="row2">
-                  <p> {{transformDateMY(experience.startDate)}} </p> <span>-</span> <p v-if="experience.isWorking">{{section.i18n.DateWorking[locale]}}</p> <p v-else>{{transformDateMY(experience.finishDate)}}</p>
+                  <p class="reduce-size"> {{transformDateMY(experience.startDate)}} </p> <span class="reduce-size" v-if="experience.isWorking">-</span> <span class="reduce-size" v-else-if="experience.finishDate !==''">-</span> <p class="reduce-size" v-if="experience.isWorking">{{layout.jobExperience.i18n.DateWorking[locale]}}</p> <p class="reduce-size" v-else>{{transformDateMY(experience.finishDate)}}</p>
                 </div>
 
                 <div class="row3">
@@ -86,14 +86,14 @@ const transformDateMY = (date) => {
           <!-- END JOB EXPERIENCE -->
 
           <!-- BEGIN PERSONAL PROJECTS -->
-          <Section class="personal-projects" :icon="section.icon" :title="section.i18n.Title[locale]" v-if="section.id == 'personal-projects-section'" >
+          <Section class="personal-projects" :icon="layout.personalProjects.icon" :title="layout.personalProjects.i18n.Title[locale]" >
             <template #body>
-              <div class="project" v-for="project, index in section.content" :key="index">
+              <div class="project" v-for="project, index in layout.personalProjects.content" :key="index">
                 <h4>{{project.title}}</h4>
                 <p v-html="project.description"></p>
                 <div class="links">
-                  <a href="#">{{project.repositoryLink}}</a>
-                  <a href="#">{{project.websiteLink}}</a>
+                  <a href="{{ project.repositoryLink }}">{{layout.personalProjects.i18n.Repository.link.label[locale]}}</a>
+                  <a href="{{ project.websiteLink }}">{{layout.personalProjects.i18n.Website.link.label[locale]}}</a>
                 </div>
               </div>
             </template>
@@ -106,32 +106,110 @@ const transformDateMY = (date) => {
         <!-- BEGIN RIGHT GROUP -->
         <div class="right-group">
           <!-- BEGIN EDUCATION HISTORY -->
-          <Section class="education-history" :icon="section.icon" :title="section.i18n.Title[locale]" v-if="section.id == 'education-history-section'" >
+          <Section class="education-history" :icon="layout.educationHistory.icon" :title="layout.educationHistory.i18n.Title[locale]" >
             <template #body>
+              <ol class="bullet-point">
+                <li v-for="education, index in layout.educationHistory.content" :key="index">
+                  <div class="bullet">
+                    <svg aria-hidden="true" viewBox="0 0 32 32" focusable="false">
+                      <circle stroke="none" cx="16" cy="16" r="10"></circle>
+                    </svg>
+                  </div>
+                  <div class="body">
+                    <div class="row1">
+                      <h4>{{ education.title }}</h4>
+                    </div>
+                    
+                    <div class="row2">
+                      <p class="reduce-size"> {{transformDateMY(education.startDate)}} </p> <span class="reduce-size">-</span> <p class="reduce-size">{{transformDateMY(education.finishDate)}}</p>
+                    </div>
+
+                    <div class="row3">
+                      <p>{{ education.institute }}</p>
+                    </div>
+                  </div>
+                </li>
+              </ol>
             </template>
           </Section>
           <!-- END EDUCATION HISTORY -->
 
           <!-- BEGIN TECHNICAL SKILLS -->
-          <Section class="technical-skills" :icon="section.icon" :title="section.i18n.Title[locale]" v-if="section.id == 'technical-skills-section'" >
+          <Section class="technical-skills" :icon="layout.technicalSkills.icon" :title="layout.technicalSkills.i18n.Title[locale]" >
             <template #body>
+              <ol class="bullet-point">
+                <li v-for="skill, index in layout.technicalSkills.content" :key="index">
+                  <div class="bullet">
+                    <svg aria-hidden="true" viewBox="0 0 32 32" focusable="false">
+                      <circle stroke="none" cx="16" cy="16" r="10"></circle>
+                    </svg>
+                  </div>
+                  <div class="body">
+                    <h4>{{ skill.skill }}<span>:</span></h4>
+                    <p>{{ skill.detail }}</p>
+                  </div>
+                </li>
+              </ol>
             </template>
           </Section>
           <!-- END TECHNICAL SKILLS -->
 
           <!-- BEGIN PERSONAL SKILLS -->
-          <Section class="technical-skills" :icon="section.icon" :title="section.i18n.Title[locale]" v-if="section.id == 'personal-skills-section'" >
+          <Section class="personal-skills" :icon="layout.personalSkills.icon" :title="layout.personalSkills.i18n.Title[locale]" >
             <template #body>
+              <ol class="bullet-point">
+                <li v-for="skill, index in layout.personalSkills.content" :key="index">
+                  <div class="bullet">
+                    <svg aria-hidden="true" viewBox="0 0 32 32" focusable="false">
+                      <circle stroke="none" cx="16" cy="16" r="10"></circle>
+                    </svg>
+                  </div>
+                  <div>
+                     <h4>{{ skill.skill }}</h4>
+                  </div>
+                </li>
+              </ol>
             </template>
           </Section>
           <!-- END PERSONAL SKILLS -->
 
           <!-- BEGIN CERTIFICATIONS -->
-          <Section class="certifications" :icon="section.icon" :title="section.i18n.Title[locale]" v-if="section.id == 'certifications-section'" >
+          <Section class="certifications" :icon="layout.certifications.icon" :title="layout.certifications.i18n.Title[locale]" >
             <template #body>
+              <ol class="bullet-point">
+                <li v-for="certification, index in layout.certifications.content" :key="index">
+                  <div class="bullet">
+                    <svg aria-hidden="true" viewBox="0 0 32 32" focusable="false">
+                      <circle stroke="none" cx="16" cy="16" r="10"></circle>
+                    </svg>
+                  </div>
+                  <div>
+                    <h4>{{ certification.certification }}</h4>
+                  </div>
+                </li>
+              </ol>
             </template>
           </Section>
           <!-- END CERTIFICATIONS -->
+
+          <!-- BEGIN HOBBIES -->
+          <Section class="hobbies" :icon="layout.hobbies.icon" :title="layout.hobbies.i18n.Title[locale]" >
+            <template #body>
+              <ol class="bullet-point">
+                <li v-for="hobby, index in layout.hobbies.content" :key="index">
+                  <div class="bullet">
+                    <svg aria-hidden="true" viewBox="0 0 32 32" focusable="false">
+                      <circle stroke="none" cx="16" cy="16" r="10"></circle>
+                    </svg>
+                  </div>
+                  <div>
+                    <h4>{{ hobby.hobby }}</h4>
+                  </div>
+                </li>
+              </ol>
+            </template>
+          </Section>
+          <!-- END HOBBIES -->
         </div>
         <!-- END RIGHT GROUP -->
       </div>
@@ -143,10 +221,75 @@ const transformDateMY = (date) => {
 </template>
 
 <style lang="scss">
+// Bullet Point +
+.bullet-point {
+		list-style: disc;
+		display: flex;
+		flex-direction: column;
+		margin-left: 0.6rem;
+
+		// List Item +
+		li {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.4rem;
+			position: relative;
+			margin: 0;
+			padding-bottom: 2em;
+			padding-left: 1.25rem;
+
+			&::before {
+				background-color: var(--mid-grey);
+				width: 0.125rem;
+				content: '';
+				position: absolute;
+				top: 0rem;
+				min-height: 2.8rem;
+				height: 100%;
+				bottom: 0rem;
+				left: 0.313rem;
+			}
+
+			&:first-child::before {
+				/* Start the line further down on the first list item */
+				top: 0.8rem;
+			}
+
+			&:last-child::before {
+				/* Stop the line short on the final list item */
+				height: 2.813rem;
+			}
+		}
+
+		// List Item -
+
+		// Bullet +
+		.bullet {
+			margin-left: -1.31rem;
+			width: 1.5rem;
+			fill: var(--mid-grey);
+			float: left;
+			padding-right: 0.625rem;
+			position: absolute;
+		}
+
+		// Bullet -
+	}
+
+	// Bullet Point -
+
+.reduce-size {
+  font-weight: normal !important;
+  font-size: 0.9rem !important;
+}
+  
 #resume1{
   &>.resume-wrapper{
     background-color: var(--alabaster);
     padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 6rem;
 
     // BEGIN HEAD
     &>.row1{
@@ -197,14 +340,21 @@ const transformDateMY = (date) => {
 
 
     &>.row3{
+      display: grid;
+      grid-template-columns: 60% 40%;
 
       .left-group{
+
         // BEGIN JOB EXPERIENCE
         .job-experience{
+          display: flex;
+          flex-direction: column;
+
           .experience{
             display: flex;
             flex-direction: column;
             gap: 1rem;
+            margin-bottom: 2.6rem;
 
             .row1{
               display: flex;
@@ -217,6 +367,10 @@ const transformDateMY = (date) => {
               align-items: center;
               justify-content: center;
               gap: 1rem;
+
+              p,span{
+                color: var(--pastel-grey);
+              }
             }
 
             .row4{
@@ -229,9 +383,17 @@ const transformDateMY = (date) => {
 
         // BEGIN PERSONAL PROJECTS
         .personal-projects{
-          .links{
+          .project{
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            gap: 0.4rem;
+
+            .links{
+              display: flex;
+              justify-content: start;
+              gap: 2rem;
+              margin-top: 1rem;
+            }
           }
         }
         // END PERSONAL PROJECTS
@@ -239,6 +401,50 @@ const transformDateMY = (date) => {
       }
 
       .right-group{
+        margin-top: 0.4rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+
+         // BEGIN EDUCATION HISTORY
+         .education-history{
+          .body{
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+
+            .row1, .row2, .row3{
+              width: 66%;
+            }
+
+            .row2{
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 1rem;
+
+              p, span{
+                color: var(--pastel-grey);
+              }
+
+              
+            }
+
+          }
+        }
+        // END EDUCATION HISTORY
+
+        // BEGIN TECHNICAL SKILLS
+        .technical-skills{
+          .body{
+            width: 66%;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.3rem;
+          }
+        }
+        // END TECHNICAL SKILLS
       }
 
     }

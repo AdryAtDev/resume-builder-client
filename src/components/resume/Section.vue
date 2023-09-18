@@ -32,7 +32,7 @@ defineProps({
 
 <style lang="scss" scoped>
 .section{
-  margin: 0 1rem;
+  margin: 1rem;
 
   .head{
     display: flex;
@@ -47,6 +47,7 @@ defineProps({
     h3{
       padding-top: 0.2rem;
       text-transform: uppercase;
+      color: var(--celestial-blue);
     }
   }
 
