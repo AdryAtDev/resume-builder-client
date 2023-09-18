@@ -49,8 +49,6 @@ const appStore = useAppStore();
     align-items: center;
     gap: 2rem;
     
-    .btn-language{
-    }
   }
   /* END LANGUAGES */
 
